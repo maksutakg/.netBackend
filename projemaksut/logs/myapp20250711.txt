@@ -1,0 +1,11 @@
+2025-07-11 16:03:45.005 +03:00 [INF] Retrieved 3 users
+2025-07-11 16:03:45.746 +03:00 [INF] Retrieved 3 users
+2025-07-11 16:03:56.575 +03:00 [INF] User retrieved with ID: 1
+2025-07-11 16:04:05.989 +03:00 [INF] GetUser: User not found with ID:5
+2025-07-11 16:04:13.364 +03:00 [INF] GetUser: User not found with ID:5
+2025-07-11 16:05:20.522 +03:00 [INF] GetUser: User not found with ID:5
+2025-07-11 16:05:27.447 +03:00 [INF] Retrieved 3 users
+2025-07-11 16:05:45.997 +03:00 [INF] User created ,string,string
+2025-07-11 16:05:59.867 +03:00 [INF] User deleted with ID: 4
+2025-07-11 16:06:14.231 +03:00 [INF] User deleted with ID: 5
+2025-07-11 16:39:09.351 +03:00 [INF] User retrieved with ID: 1
