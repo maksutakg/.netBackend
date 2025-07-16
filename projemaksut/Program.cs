@@ -5,6 +5,7 @@ using Domain.Entities;
 using FluentValidation;
 
 using Infrastructure.Mapper;
+using Infrastructure.Middlewares;
 using Infrastructure.Validators;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Context;
@@ -24,6 +25,7 @@ builder.Services.AddScoped<IValidator<UserDto>, UserDtoValidator>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddTransient<GlobalExceptionHandler>();
 
 
 
@@ -45,6 +47,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
+
+app.UseMiddleware<GlobalExceptionHandler>();
 app.UseCors("AllowAll");
 
 app.UseSwagger();

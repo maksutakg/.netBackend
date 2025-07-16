@@ -19,3 +19,4 @@ C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\Application\obj\Debug\net8
 C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\Application\obj\Debug\net8.0\ref\Application.dll
 C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\Application\bin\Debug\net8.0\Infrastructure.dll
 C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\Application\bin\Debug\net8.0\Infrastructure.pdb
+C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\Application\obj\Debug\net8.0\Application.sourcelink.json

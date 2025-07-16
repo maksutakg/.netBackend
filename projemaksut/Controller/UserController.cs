@@ -2,9 +2,13 @@
 using AutoMapper;
 using Domain.Entities;
 using FluentValidation;
+using Infrastructure.Exception;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Query.Internal; 
+using Microsoft.EntityFrameworkCore.Query.Internal;
+using System.Net;
 using System.Threading.Tasks;
+using ValidationException = Infrastructure.Exception.ValidationException;
+
 
 namespace projemaksut.Controller
 {
@@ -25,6 +29,12 @@ namespace projemaksut.Controller
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> GetUserById(int id)
         {
+            var user = await userService.GetUser(id);
+            if (user==null)
+            {
+                throw new NotFoundException($"User with ID {id} not found");
+                
+            }
             return await userService.GetUser(id);
         }
 
@@ -32,9 +42,11 @@ namespace projemaksut.Controller
         public async Task<ActionResult<UserDto>> PostUser([FromBody] UserDto user, IValidator<UserDto> validator)
         {
             var validationResult = await validator.ValidateAsync(user);
+            string errorMessages = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage));
+
             if (!validationResult.IsValid)
             {
-                return BadRequest(validationResult.Errors);
+                throw new ValidationException(errorMessages);
             }
             return await userService.CreateUser(user);
         }
@@ -48,18 +60,21 @@ namespace projemaksut.Controller
         [HttpDelete("delete/{id}")]
         public async Task<ActionResult<User>> DeleteUser(int id)
         {
-            return await userService.DeleteUser(id);
+           await userService.DeleteUser(id);
+            return Ok();
         }
         [HttpPut("update/{id}")]
         public async Task<ActionResult<UserDto>> UpdateUser(int id, [FromBody] UserDto updateUser, IValidator<UserDto> validator)
         {
             var validationResult = await validator.ValidateAsync(updateUser);
+            string errorMessage = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage));
             if (!validationResult.IsValid)
             {
-                return BadRequest(validationResult.Errors);
+                 throw new ValidationException($"{errorMessage} is not valid");
             }
 
-            return await userService.UpdateUser(id, updateUser);
+            await userService.UpdateUser(id, updateUser);
+            return Ok();
         }
     }
 }

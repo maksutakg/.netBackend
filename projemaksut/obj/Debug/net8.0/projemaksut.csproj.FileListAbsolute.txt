@@ -305,3 +305,8 @@ C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\projemaksut\bin\Debug\net8
 C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\projemaksut\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll
 C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\projemaksut\bin\Debug\net8.0\Infrastructure.dll
 C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\projemaksut\bin\Debug\net8.0\Infrastructure.pdb
+C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\projemaksut\obj\Debug\net8.0\projemaksut.sourcelink.json
+C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\projemaksut\bin\Debug\net8.0\System.Net.Http.Formatting.dll
+C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\projemaksut\bin\Debug\net8.0\System.Web.Http.dll
+C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\projemaksut\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\projemaksut\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
