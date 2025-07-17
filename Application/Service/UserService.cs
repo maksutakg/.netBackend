@@ -63,6 +63,13 @@ namespace Application.Service
             }
 
         }
+        public async Task<List<UserDto>> GetActiveUser()
+        {
+            var users = await _context.Users.Where(u => u.IsActive).OrderByDescending(u=> u.DateTime).ToListAsync();
+            Log.Information("Retrieved {usercount} active users", users.Count);
+                return _mapper.Map<List<UserDto>>(users);
+
+        }
 
         public async Task<List<UserDto>> GetUsers()
         {

@@ -14,8 +14,8 @@ namespace Persistence.Context
         public DbSet<User> Users { get; set; }
         public AppDbContext(DbContextOptions options) : base(options)
         {
-        }
 
+        }
         protected AppDbContext()
         {
         }

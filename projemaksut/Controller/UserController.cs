@@ -26,6 +26,14 @@ namespace projemaksut.Controller
             this.validator = validator;
         }
 
+        [HttpGet("/active/users")]
+
+        public async Task<ActionResult<List<UserDto>>> GetActiveUsers()
+        {
+            return await userService.GetActiveUser();
+
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> GetUserById(int id)
         {

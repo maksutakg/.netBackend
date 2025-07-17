@@ -15,5 +15,6 @@ namespace Application.Service
         Task<List<UserDto>> GetUsers();
         Task<User> DeleteUser(int id);
         Task<UserDto> UpdateUser(int id, UserDto updateUser);
+        Task<List<UserDto>> GetActiveUser();
     }
 }

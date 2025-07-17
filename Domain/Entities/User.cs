@@ -16,6 +16,8 @@ namespace Domain.Entities
 
 
 
+
+
         public User()
         {
 

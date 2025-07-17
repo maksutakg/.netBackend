@@ -24,6 +24,44 @@
         }
       }
     },
+    "/active/users": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/User/{id}": {
       "get": {
         "tags": [
@@ -266,6 +304,9 @@
           "isDeleted": {
             "type": "boolean"
           },
+          "isActive": {
+            "type": "boolean"
+          },
           "name": {
             "type": "string",
             "nullable": true
@@ -301,6 +342,10 @@
             "nullable": true
           },
           "mail": {
+            "type": "string",
+            "nullable": true
+          },
+          "country": {
             "type": "string",
             "nullable": true
           },

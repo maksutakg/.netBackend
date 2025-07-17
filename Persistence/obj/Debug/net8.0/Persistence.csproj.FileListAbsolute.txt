@@ -8,6 +8,7 @@ C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\Persistence\obj\Debug\net8
 C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\Persistence\obj\Debug\net8.0\Persistence.AssemblyInfoInputs.cache
 C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\Persistence\obj\Debug\net8.0\Persistence.AssemblyInfo.cs
 C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\Persistence\obj\Debug\net8.0\Persistence.csproj.CoreCompileInputs.cache
+C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\Persistence\obj\Debug\net8.0\Persistence.sourcelink.json
 C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\Persistence\obj\Debug\net8.0\Persiste.61C28332.Up2Date
 C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\Persistence\obj\Debug\net8.0\Persistence.dll
 C:\Users\maksut.akgun\Desktop\backend.net\.netBackend\Persistence\obj\Debug\net8.0\refint\Persistence.dll
