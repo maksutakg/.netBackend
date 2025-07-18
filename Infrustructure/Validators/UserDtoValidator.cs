@@ -17,7 +17,7 @@ namespace Infrastructure.Validators
              RuleFor(x => x.surName).NotEmpty().WithMessage("Soyismi doldur");
              RuleFor(x => x.Note).NotEmpty().MaximumLength(900).WithMessage("900 karekter ");
              RuleFor(x => x.Mail).NotEmpty().WithMessage("Mail doldur");
-             RuleFor(x => x.Country).MaximumLength(900).WithMessage("900 karekter");
+             
         }
     }
 }

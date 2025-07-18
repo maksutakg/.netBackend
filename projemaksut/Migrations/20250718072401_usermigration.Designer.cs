@@ -12,7 +12,7 @@ using Persistence.Context;
 namespace projemaksut.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250717131904_usermigration")]
+    [Migration("20250718072401_usermigration")]
     partial class usermigration
     {
         /// <inheritdoc />
@@ -33,10 +33,6 @@ namespace projemaksut.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime(6)");
 
@@ -47,6 +43,10 @@ namespace projemaksut.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Mail")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Maksut")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -64,7 +64,7 @@ namespace projemaksut.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 #pragma warning restore 612, 618
         }

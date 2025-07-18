@@ -13,11 +13,7 @@ namespace Domain.Entities
         public string SurName { get; set; }
         public string Note { get; set; }
         public string Mail { get; set; }
-
-
-
-
-
+      
         public User()
         {
 
@@ -28,6 +24,7 @@ namespace Domain.Entities
             SurName = surName;
             Note = note;
             Mail = mail;
+
         }
 
     }

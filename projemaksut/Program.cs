@@ -40,7 +40,8 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("MySqlConnection"),
-        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("MySqlConnection"))
+        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("MySqlConnection")),
+         mysqlOptions => mysqlOptions.MigrationsAssembly("projemaksut")
     ));
 
 builder.Services.AddScoped<IUserService, UserService>();

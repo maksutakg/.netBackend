@@ -62,12 +62,8 @@ namespace Infrastructure.Middlewares
             };
             context.Response.StatusCode = response.Status.Value;
 
-            var jsonOptions = new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            };
 
-            string json = JsonSerializer.Serialize(response, jsonOptions);
+            string json = JsonSerializer.Serialize(response);
             await context.Response.WriteAsync(json);
         }
 

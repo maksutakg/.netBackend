@@ -21,9 +21,9 @@ namespace Persistence.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
             modelBuilder.Entity<User>().ToTable("Users");
+            base.OnModelCreating(modelBuilder);
+          
         }
     }
 }
