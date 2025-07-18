@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{87BAB5C8-9F0F-49CE-B7E6-43E3EF43D41B}|projemaksut\\projemaksut.csproj|c:\\users\\maksut.akgun\\desktop\\backend.net\\.netbackend\\projemaksut\\projemaksut.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{87BAB5C8-9F0F-49CE-B7E6-43E3EF43D41B}|projemaksut\\projemaksut.csproj|solutionrelative:projemaksut\\projemaksut.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ECC88E28-7D83-41D2-80C9-D5770B57ABA6}|Infrustructure\\Infrastructure.csproj|c:\\users\\maksut.akgun\\desktop\\backend.net\\.netbackend\\infrustructure\\middlewares\\globalexceptionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ECC88E28-7D83-41D2-80C9-D5770B57ABA6}|Infrustructure\\Infrastructure.csproj|solutionrelative:infrustructure\\middlewares\\globalexceptionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DC8FEAEE-110A-4D93-9858-E6C7B8DFD3F8}|Domain\\Domain.csproj|c:\\users\\maksut.akgun\\desktop\\backend.net\\.netbackend\\domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DC8FEAEE-110A-4D93-9858-E6C7B8DFD3F8}|Domain\\Domain.csproj|solutionrelative:domain\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -35,20 +43,12 @@
       "RelativeMoniker": "D:0:0:{0D08EAF5-D4DF-4473-8E56-A6B0311D7845}|Persistence\\Persistence.csproj|solutionrelative:persistence\\context\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{87BAB5C8-9F0F-49CE-B7E6-43E3EF43D41B}|projemaksut\\projemaksut.csproj|c:\\users\\maksut.akgun\\desktop\\backend.net\\.netbackend\\projemaksut\\projemaksut.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{87BAB5C8-9F0F-49CE-B7E6-43E3EF43D41B}|projemaksut\\projemaksut.csproj|solutionrelative:projemaksut\\projemaksut.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{0D08EAF5-D4DF-4473-8E56-A6B0311D7845}|Persistence\\Persistence.csproj|c:\\users\\maksut.akgun\\desktop\\backend.net\\.netbackend\\persistence\\persistence.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{0D08EAF5-D4DF-4473-8E56-A6B0311D7845}|Persistence\\Persistence.csproj|solutionrelative:persistence\\persistence.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{62B3B87A-8002-48FE-B57D-3496B5C5FFFD}|Application\\Application.csproj|c:\\users\\maksut.akgun\\desktop\\backend.net\\.netbackend\\application\\application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{62B3B87A-8002-48FE-B57D-3496B5C5FFFD}|Application\\Application.csproj|solutionrelative:application\\application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ECC88E28-7D83-41D2-80C9-D5770B57ABA6}|Infrustructure\\Infrastructure.csproj|c:\\users\\maksut.akgun\\desktop\\backend.net\\.netbackend\\infrustructure\\middlewares\\globalexceptionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ECC88E28-7D83-41D2-80C9-D5770B57ABA6}|Infrustructure\\Infrastructure.csproj|solutionrelative:infrustructure\\middlewares\\globalexceptionhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ECC88E28-7D83-41D2-80C9-D5770B57ABA6}|Infrustructure\\Infrastructure.csproj|c:\\users\\maksut.akgun\\desktop\\backend.net\\.netbackend\\infrustructure\\exception\\notfoundexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -119,63 +119,37 @@
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Application\\Service\\UserService.cs",
-              "RelativeDocumentMoniker": "Application\\Service\\UserService.cs",
-              "ToolTip": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Application\\Service\\UserService.cs*",
-              "RelativeToolTip": "Application\\Service\\UserService.cs*",
-              "ViewState": "AgIAADYAAAAAAAAAAAAowEMAAABLAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-11T10:35:19.801Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "EntityBase.cs",
-              "DocumentMoniker": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Domain\\Common\\EntityBase.cs",
-              "RelativeDocumentMoniker": "Domain\\Common\\EntityBase.cs",
-              "ToolTip": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Domain\\Common\\EntityBase.cs",
-              "RelativeToolTip": "Domain\\Common\\EntityBase.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-11T10:28:00.203Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "UserDtoValidator.cs",
               "DocumentMoniker": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Infrustructure\\Validators\\UserDtoValidator.cs",
               "RelativeDocumentMoniker": "Infrustructure\\Validators\\UserDtoValidator.cs",
-              "ToolTip": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Infrustructure\\Validators\\UserDtoValidator.cs*",
-              "RelativeToolTip": "Infrustructure\\Validators\\UserDtoValidator.cs*",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Infrustructure\\Validators\\UserDtoValidator.cs",
+              "RelativeToolTip": "Infrustructure\\Validators\\UserDtoValidator.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAIBJwBcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-11T11:16:13.719Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "IUserService.cs",
               "DocumentMoniker": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Application\\Service\\IUserService.cs",
               "RelativeDocumentMoniker": "Application\\Service\\IUserService.cs",
-              "ToolTip": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Application\\Service\\IUserService.cs*",
-              "RelativeToolTip": "Application\\Service\\IUserService.cs*",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAsAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Application\\Service\\IUserService.cs",
+              "RelativeToolTip": "Application\\Service\\IUserService.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAIBJwBEAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-11T10:30:27.657Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "UserDto.cs",
               "DocumentMoniker": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Domain\\Entities\\UserDto.cs",
               "RelativeDocumentMoniker": "Domain\\Entities\\UserDto.cs",
-              "ToolTip": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Domain\\Entities\\UserDto.cs*",
-              "RelativeToolTip": "Domain\\Entities\\UserDto.cs*",
+              "ToolTip": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Domain\\Entities\\UserDto.cs",
+              "RelativeToolTip": "Domain\\Entities\\UserDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-11T10:31:00.89Z",
@@ -183,12 +157,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Domain\\Entities\\User.cs",
               "RelativeDocumentMoniker": "Domain\\Entities\\User.cs",
-              "ToolTip": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Domain\\Entities\\User.cs*",
-              "RelativeToolTip": "Domain\\Entities\\User.cs*",
+              "ToolTip": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Domain\\Entities\\User.cs",
+              "RelativeToolTip": "Domain\\Entities\\User.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-11T10:25:30.139Z",
@@ -196,12 +170,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "UserController.cs",
               "DocumentMoniker": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\projemaksut\\Controller\\UserController.cs",
               "RelativeDocumentMoniker": "projemaksut\\Controller\\UserController.cs",
-              "ToolTip": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\projemaksut\\Controller\\UserController.cs*",
-              "RelativeToolTip": "projemaksut\\Controller\\UserController.cs*",
+              "ToolTip": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\projemaksut\\Controller\\UserController.cs",
+              "RelativeToolTip": "projemaksut\\Controller\\UserController.cs",
               "ViewState": "AgIAABwAAAAAAAAAAAApwDIAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-08T10:43:15.225Z",
@@ -209,20 +183,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "AppDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Persistence\\Context\\AppDbContext.cs",
-              "RelativeDocumentMoniker": "Persistence\\Context\\AppDbContext.cs",
-              "ToolTip": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Persistence\\Context\\AppDbContext.cs",
-              "RelativeToolTip": "Persistence\\Context\\AppDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-11T11:00:06.779Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 0,
               "Title": "projemaksut.csproj",
               "DocumentMoniker": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\projemaksut\\projemaksut.csproj",
               "RelativeDocumentMoniker": "projemaksut\\projemaksut.csproj",
@@ -235,19 +196,59 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 4,
+              "Title": "EntityBase.cs",
+              "DocumentMoniker": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Domain\\Common\\EntityBase.cs",
+              "RelativeDocumentMoniker": "Domain\\Common\\EntityBase.cs",
+              "ToolTip": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Domain\\Common\\EntityBase.cs",
+              "RelativeToolTip": "Domain\\Common\\EntityBase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-11T10:28:00.203Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "GlobalExceptionHandler.cs",
               "DocumentMoniker": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Infrustructure\\Middlewares\\GlobalExceptionHandler.cs",
               "RelativeDocumentMoniker": "Infrustructure\\Middlewares\\GlobalExceptionHandler.cs",
               "ToolTip": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Infrustructure\\Middlewares\\GlobalExceptionHandler.cs",
               "RelativeToolTip": "Infrustructure\\Middlewares\\GlobalExceptionHandler.cs",
-              "ViewState": "AgIAACwAAAAAAAAAAAAgwBEAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAACkAAAAAAAAAAAAgwBEAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-16T05:51:24.074Z"
+              "WhenOpened": "2025-07-16T05:51:24.074Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 7,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Application\\Service\\UserService.cs",
+              "RelativeDocumentMoniker": "Application\\Service\\UserService.cs",
+              "ToolTip": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Application\\Service\\UserService.cs",
+              "RelativeToolTip": "Application\\Service\\UserService.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAAAowEMAAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-11T10:35:19.801Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Persistence\\Context\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "Persistence\\Context\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Persistence\\Context\\AppDbContext.cs",
+              "RelativeToolTip": "Persistence\\Context\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-11T11:00:06.779Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "Application.csproj",
               "DocumentMoniker": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Application\\Application.csproj",
               "RelativeDocumentMoniker": "Application\\Application.csproj",
@@ -260,7 +261,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "Persistence.csproj",
               "DocumentMoniker": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Persistence\\Persistence.csproj",
               "RelativeDocumentMoniker": "Persistence\\Persistence.csproj",
@@ -281,7 +282,8 @@
               "RelativeToolTip": "Infrustructure\\Exception\\NotFoundException.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-16T07:55:08.953Z"
+              "WhenOpened": "2025-07-16T07:55:08.953Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -293,7 +295,8 @@
               "RelativeToolTip": "projemaksut\\Migrations\\AppDbContextModelSnapshot.cs",
               "ViewState": "AgIAABMAAAAAAAAAAAAQwAwAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-08T13:00:03.454Z"
+              "WhenOpened": "2025-07-08T13:00:03.454Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -305,7 +308,8 @@
               "RelativeToolTip": "projemaksut\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAIBJwA8AAABvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-08T07:33:09.361Z"
+              "WhenOpened": "2025-07-08T07:33:09.361Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -317,7 +321,8 @@
               "RelativeToolTip": "Infrustructure\\Exception\\ValidationException.cs",
               "ViewState": "AgIAAAEAAAAAAAAAAAAUwA0AAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-16T09:38:00.562Z"
+              "WhenOpened": "2025-07-16T09:38:00.562Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -327,9 +332,10 @@
               "RelativeDocumentMoniker": "projemaksut\\logs\\myapp20250716.txt",
               "ToolTip": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\projemaksut\\logs\\myapp20250716.txt",
               "RelativeToolTip": "projemaksut\\logs\\myapp20250716.txt",
-              "ViewState": "AgIAABAAAAAAAAAAAABBwCQAAAA4AAAAAAAAAA==",
+              "ViewState": "AgIAAA4AAAAAAAAAAABRwCQAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2025-07-16T08:58:02.938Z"
+              "WhenOpened": "2025-07-16T08:58:02.938Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -339,9 +345,10 @@
               "RelativeDocumentMoniker": "Infrustructure\\Mapper\\MappingProfile.cs",
               "ToolTip": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Infrustructure\\Mapper\\MappingProfile.cs",
               "RelativeToolTip": "Infrustructure\\Mapper\\MappingProfile.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAIBJwAkAAAAPAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAABRwAkAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-11T10:48:59.227Z"
+              "WhenOpened": "2025-07-11T10:48:59.227Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -351,9 +358,10 @@
               "RelativeDocumentMoniker": "projemaksut\\logs\\myapp20250710.txt",
               "ToolTip": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\projemaksut\\logs\\myapp20250710.txt",
               "RelativeToolTip": "projemaksut\\logs\\myapp20250710.txt",
-              "ViewState": "AgIAAAEAAAAAAAAAAABBwAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2025-07-11T12:32:51.398Z"
+              "WhenOpened": "2025-07-11T12:32:51.398Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -365,7 +373,8 @@
               "RelativeToolTip": "projemaksut\\Migrations\\20250708091418_InitialCreate.cs",
               "ViewState": "AgIAAAsAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-08T13:53:54.801Z"
+              "WhenOpened": "2025-07-08T13:53:54.801Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -377,7 +386,8 @@
               "RelativeToolTip": "projemaksut\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-07-08T08:21:33.353Z"
+              "WhenOpened": "2025-07-08T08:21:33.353Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -389,7 +399,8 @@
               "RelativeToolTip": "projemaksut\\Migrations\\20250708091418_InitialCreate.Designer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-11T12:55:36.035Z"
+              "WhenOpened": "2025-07-11T12:55:36.035Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -425,9 +436,10 @@
               "RelativeDocumentMoniker": "projemaksut\\Properties\\launchSettings.json",
               "ToolTip": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\projemaksut\\Properties\\launchSettings.json",
               "RelativeToolTip": "projemaksut\\Properties\\launchSettings.json",
-              "ViewState": "AgIAAAkAAAAAAAAAAOBvwBwAAAAGAAAAAAAAAA==",
+              "ViewState": "AgIAAAUAAAAAAAAAADB0wBwAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-07-09T06:32:27.066Z"
+              "WhenOpened": "2025-07-09T06:32:27.066Z",
+              "EditorCaption": ""
             }
           ]
         }
