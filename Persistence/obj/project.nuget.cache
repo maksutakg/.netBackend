@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bJgsCSxq8SA=",
+  "dgSpecHash": "vaN3c7QmRzA=",
   "success": true,
-  "projectFilePath": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Persistence\\Persistence.csproj",
+  "projectFilePath": "C:\\Users\\maksut.akgun\\Desktop\\backend çalış\\.netBackend\\Persistence\\Persistence.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\maksut.akgun\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\maksut.akgun\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

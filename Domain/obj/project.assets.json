@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Domain\\Domain.csproj",
+      "projectUniqueName": "C:\\Users\\maksut.akgun\\Desktop\\backend çalış\\.netBackend\\Domain\\Domain.csproj",
       "projectName": "Domain",
-      "projectPath": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Domain\\Domain.csproj",
+      "projectPath": "C:\\Users\\maksut.akgun\\Desktop\\backend çalış\\.netBackend\\Domain\\Domain.csproj",
       "packagesPath": "C:\\Users\\maksut.akgun\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\maksut.akgun\\Desktop\\backend.net\\.netBackend\\Domain\\obj\\",
+      "outputPath": "C:\\Users\\maksut.akgun\\Desktop\\backend çalış\\.netBackend\\Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
