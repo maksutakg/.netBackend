@@ -41,11 +41,15 @@ namespace Application.Service
         public async Task<User> DeleteUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
-            if (user == null) { return null; }
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-            Log.Information($"User deleted with ID: {id}");
-            return user;
+            if (user== null) { return null; }
+            else
+            {
+              user.IsActive = false;
+                await _context.SaveChangesAsync();
+                Log.Information($"User soft deleted with ID: {id}");
+                return user;
+            }
+          
         }
 
         public async Task<UserDto> GetUser(int id)
@@ -94,6 +98,33 @@ namespace Application.Service
                 return null;
             }
 
+        }
+
+        public async Task<List<UserDto>> FiltreUsers(int? id,string? name, string? surName, string? mail)
+        {
+            var query = _context.Users.AsQueryable();
+            if (id != null)
+            {
+                query = query.Where(u => u.Id == id);
+                Log.Information($"Filtering by ID: {id}");
+            }
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(u => u.Name.Contains(name));
+                Log.Information($"Filtering by Name:{name}");
+            }
+            if (!string.IsNullOrEmpty(surName))
+            {
+                query = query.Where(u => u.SurName.Contains(surName));
+                Log.Information($"Filtering by Surname: {surName}", surName);
+            }
+            if (!string.IsNullOrEmpty(mail))
+            {
+                query=query.Where(u=>u.Mail.Contains(mail));
+                Log.Information($"Filtering by Mail: {mail}", mail);
+            }
+           var users= await query.ToListAsync();
+            return _mapper.Map<List<UserDto>>(users);
         }
     }
 }

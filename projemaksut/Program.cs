@@ -3,7 +3,7 @@
 using Application.Service;
 using Domain.Entities;
 using FluentValidation;
-
+using FluentValidation.AspNetCore;
 using Infrastructure.Mapper;
 using Infrastructure.Middlewares;
 using Infrastructure.Validators;
@@ -17,16 +17,16 @@ Log.Logger = new LoggerConfiguration()
             .WriteTo.File("logs/myapp.txt", rollingInterval: RollingInterval.Day)
             .CreateLogger();
 
-builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>()); 
+builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
 
 
-
+builder.Services.AddControllers();
+builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddScoped<IValidator<UserDto>, UserDtoValidator>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddControllers();
+builder.Services.AddScoped<IValidator<UserDto>, UserDtoValidator>();
 builder.Services.AddTransient<GlobalExceptionHandler>();
-
 
 
 builder.Services.AddCors(options =>
