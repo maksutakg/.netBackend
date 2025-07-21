@@ -14,7 +14,7 @@ namespace Application.Service
 {
     public class UserService : IUserService
     {
-         
+
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
 
@@ -33,7 +33,7 @@ namespace Application.Service
             var user = _mapper.Map<User>(userDto);
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            Log.Information("User created {UserName},{UserSurname},{UserEmail}", userDto.name, userDto.Mail, userDto.surName);
+            Log.Information($"User created {userDto.name},{userDto.surName},{userDto.Mail}");
             return _mapper.Map<UserDto>(user);
 
         }
@@ -44,7 +44,7 @@ namespace Application.Service
             if (user == null) { return null; }
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
-            Log.Information("User deleted with ID: {UserId}", id);
+            Log.Information($"User deleted with ID: {id}");
             return user;
         }
 
@@ -53,28 +53,28 @@ namespace Application.Service
             var user = await _context.Users.FindAsync(id);
             if (user != null)
             {
-                Log.Information("User retrieved with ID: {UserId}", id);
+                Log.Information($"User retrieved with ID: {id}");
                 return _mapper.Map<UserDto>(user);
             }
             else
             {
-                Log.Information("GetUser: User not found with ID:{UserID}", id);
+                Log.Information($"GetUser: User not found with ID:{id}");
                 return null;
             }
 
         }
         public async Task<List<UserDto>> GetActiveUser()
         {
-            var users = await _context.Users.Where(u => u.IsActive).OrderByDescending(u=> u.DateTime).ToListAsync();
-            Log.Information("Retrieved {usercount} active users", users.Count);
-                return _mapper.Map<List<UserDto>>(users);
+            var users = await _context.Users.Where(u => u.IsActive).OrderByDescending(u => u.DateTime).ToListAsync();
+            Log.Information($"Retrieved {users.Count} active users");
+            return _mapper.Map<List<UserDto>>(users);
 
         }
 
         public async Task<List<UserDto>> GetUsers()
         {
             var users = await _context.Users.ToListAsync();
-            Log.Information("Retrieved {UserCount} users", users.Count);
+            Log.Information($"Retrieved {users.Count} users");
             return _mapper.Map<List<UserDto>>(users);
         }
 
@@ -85,12 +85,12 @@ namespace Application.Service
             {
                 _mapper.Map(UpdateUser, user);
                 await _context.SaveChangesAsync();
-                Log.Information("User updated with Id: {userID}", id);
+                Log.Information($"User updated with Id: {id}");
                 return _mapper.Map<UserDto>(user);
             }
             else
             {
-                Log.Information("UpdateUser: not found with Id :{userID}", id);
+                Log.Information($"UpdateUser: not found with Id :{id}");
                 return null;
             }
 
