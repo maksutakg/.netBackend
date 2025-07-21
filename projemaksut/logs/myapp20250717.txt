@@ -1,2 +1,0 @@
-2025-07-17 16:22:30.292 +03:00 [INF] User created maksut,maksutakgun@gmail.com,akgün
-2025-07-17 16:22:38.468 +03:00 [INF] Retrieved 1 active users
