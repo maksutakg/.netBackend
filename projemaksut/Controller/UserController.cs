@@ -3,8 +3,15 @@ using AutoMapper;
 using Domain.Entities;
 using FluentValidation;
 using Infrastructure.Exception;
+using Infrastructure.Token;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
+using Persistence.Context;
+using System.Data;
 using System.Net;
 using System.Threading.Tasks;
 using ValidationException = Infrastructure.Exception.ValidationException;
@@ -19,11 +26,30 @@ namespace projemaksut.Controller
         private readonly IUserService userService;
         private readonly IMapper mapper;
         private readonly IValidator<UserDto> validator;
-        public UserController(IUserService userService, IMapper mapper, IValidator<UserDto> validator)
+        private readonly ITokenService tokenService;
+        private readonly AppDbContext appDbContext;
+        public UserController(IUserService userService, IMapper mapper, IValidator<UserDto> validator, ITokenService tokenService, AppDbContext appDbContext)
         {
             this.userService = userService;
             this.mapper = mapper;
             this.validator = validator;
+            this.tokenService = tokenService;
+            this.appDbContext = appDbContext;
+        }
+
+        [HttpPost("Auth")]
+        public async Task<ActionResult<string>> Login([FromBody] LoginDto loginDto)
+        {
+            var user = await userService.CheckUser(loginDto.id, loginDto.Name);
+            if (user != null && user.Role=="Admin")
+            {
+                
+                var token = tokenService.GenerateToken(user.Name, user.Role);
+                return Ok(token);
+            }
+            return NotFound();
+
+
         }
 
         [HttpGet("active/users")]
@@ -51,14 +77,14 @@ namespace projemaksut.Controller
         [HttpPost("user")]
         public async Task<ActionResult<UserDto>> PostUser([FromBody] UserDto user,IValidator<UserDto> validator)
         {
-            var validationResult = await validator.ValidateAsync(user);
+           var validationResult = await validator.ValidateAsync(user);
             string errorMessage = string.Join(", ", validationResult.Errors);
-            if (validationResult != null) {
+            if (!validationResult.IsValid) {
                 throw new ValidationException(errorMessage);
-            
             }
             return await userService.CreateUser(user);
         }
+
 
         [HttpDelete("delete/{id}")]
         public async Task<ActionResult<User>> DeleteUser(int id)
@@ -84,6 +110,26 @@ namespace projemaksut.Controller
 
             await userService.UpdateUser(id, updateUser);
             return Ok();
+        }
+
+        [Authorize(Roles= "Admin")]
+        [HttpGet("adminUsers")]
+        public async Task<ActionResult<List<User>>> GetDetailUsers()
+        {
+
+            var users = await appDbContext.Users.ToListAsync();
+
+            return Ok(users);
+
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("adminHardDelete")]
+
+         public async Task<ActionResult<UserDto>> HardDeleteUser(int id)
+        {
+            userService.DeleteUser(id);
+            return Ok();
+
         }
     }
 }

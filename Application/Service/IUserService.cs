@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 
 namespace Application.Service
 {
@@ -17,5 +18,6 @@ namespace Application.Service
         Task<User> DeleteUser(int id);
         Task<UserDto> UpdateUser(int id, UserDto updateUser);
         Task<List<UserDto>> GetActiveUser();
+        Task<User> CheckUser(int id,string name);
     }
 }

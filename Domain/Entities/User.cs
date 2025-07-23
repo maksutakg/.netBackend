@@ -16,15 +16,14 @@ namespace Domain.Entities
       
         public User()
         {
-
         }
-        public User(string name, string surName, string note, string mail)
+        public User(string name, string surName, string note, string mail,string role )
         {
             Name = name;
             SurName = surName;
             Note = note;
             Mail = mail;
-
+            Role = role;
         }
 
     }

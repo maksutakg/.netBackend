@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
 using Domain.Entities;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Context;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,6 +58,7 @@ namespace Application.Service
         public async Task<UserDto> GetUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
+          
             if (user != null)
             {
                 Log.Information($"User retrieved with ID: {id}");
@@ -87,7 +91,7 @@ namespace Application.Service
             var user = await _context.Users.FindAsync(id);
             if (user != null)
             {
-                _mapper.Map(UpdateUser, user);
+                _mapper.Map(UpdateUser,user);
                 await _context.SaveChangesAsync();
                 Log.Information($"User updated with Id: {id}");
                 return _mapper.Map<UserDto>(user);
@@ -126,5 +130,12 @@ namespace Application.Service
            var users= await query.ToListAsync();
             return _mapper.Map<List<UserDto>>(users);
         }
+
+
+        public  async Task<User> CheckUser(int id, string name)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Id == id && u.Name == name);
+        }
     }
-}
+    }
+

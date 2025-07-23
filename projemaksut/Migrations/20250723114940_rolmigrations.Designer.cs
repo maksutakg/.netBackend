@@ -12,8 +12,8 @@ using Persistence.Context;
 namespace projemaksut.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250718072401_usermigration")]
-    partial class usermigration
+    [Migration("20250723114940_rolmigrations")]
+    partial class rolmigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,15 +46,15 @@ namespace projemaksut.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Maksut")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Note")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("longtext");
 

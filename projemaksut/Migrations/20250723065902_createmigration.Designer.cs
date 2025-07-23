@@ -12,8 +12,8 @@ using Persistence.Context;
 namespace projemaksut.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250718072908_düzeltmemig")]
-    partial class düzeltmemig
+    [Migration("20250723065902_createmigration")]
+    partial class createmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
