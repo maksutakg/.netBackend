@@ -36,7 +36,7 @@ namespace Application.Service
             var user = _mapper.Map<User>(userDto);
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            Log.Information($"User created {userDto.name},{userDto.surName},{userDto.Mail}");
+            Log.Information($"User created {userDto.Name},{userDto.SurName},{userDto.Mail}");
             return _mapper.Map<UserDto>(user);
 
         }
@@ -104,7 +104,7 @@ namespace Application.Service
 
         }
 
-        public async Task<List<UserDto>> FiltreUsers(int? id,string? name, string? surName, string? mail)
+       public async Task<List<UserDto>> FiltreUsers(int? id, string? name, string? surName, string? mail)
         {
             var query = _context.Users.AsQueryable();
             if (id != null)

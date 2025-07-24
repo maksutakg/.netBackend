@@ -35,7 +35,7 @@ namespace Infrastructure.Token
              claims: claims,
              expires: DateTime.UtcNow.AddMinutes(jwtOptions.ExpiresInMinutes),
              signingCredentials: creds
-                );
+                ); 
             return new JwtSecurityTokenHandler().WriteToken(token);
 
 

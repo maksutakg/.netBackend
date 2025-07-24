@@ -40,7 +40,7 @@ namespace projemaksut.Controller
         [HttpPost("Auth")]
         public async Task<ActionResult<string>> Login([FromBody] LoginDto loginDto)
         {
-            var user = await userService.CheckUser(loginDto.id, loginDto.Name);
+            var user = await userService.CheckUser(loginDto.Id, loginDto.Name);
             if (user != null && user.Role=="Admin")
             {
                 
@@ -75,9 +75,9 @@ namespace projemaksut.Controller
         }
 
         [HttpPost("user")]
-        public async Task<ActionResult<UserDto>> PostUser([FromBody] UserDto user,IValidator<UserDto> validator)
+        public async Task<ActionResult<UserDto>> PostUser([FromBody] UserDto user)
         {
-           var validationResult = await validator.ValidateAsync(user);
+            var validationResult = await validator.ValidateAsync(user);
             string errorMessage = string.Join(", ", validationResult.Errors);
             if (!validationResult.IsValid) {
                 throw new ValidationException(errorMessage);
@@ -99,13 +99,13 @@ namespace projemaksut.Controller
             return Ok();
         }
         [HttpPut("update/{id}")]
-        public async Task<ActionResult<UserDto>> UpdateUser(int id, [FromBody] UserDto updateUser, IValidator<UserDto> validator)
+        public async Task<ActionResult<UserDto>> UpdateUser(int id, [FromBody] UserDto updateUser)
         {
-            var validationResult = await validator.ValidateAsync(updateUser);
+            var validationResult= await  validator.ValidateAsync(updateUser);
             string errorMessage = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage));
             if (!validationResult.IsValid)
             {
-                 throw new ValidationException($"{errorMessage} is not valid");
+                 throw new ValidationException(  $"{errorMessage} is not valid");
             }
 
             await userService.UpdateUser(id, updateUser);
@@ -118,13 +118,11 @@ namespace projemaksut.Controller
         {
 
             var users = await appDbContext.Users.ToListAsync();
-
             return Ok(users);
-
         }
+
         [Authorize(Roles = "Admin")]
         [HttpDelete("adminHardDelete")]
-
          public async Task<ActionResult<UserDto>> HardDeleteUser(int id)
         {
             userService.DeleteUser(id);

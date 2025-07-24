@@ -10,6 +10,6 @@ namespace Domain.Entities
     {
 
         public string Name { get; set; }
-        public int id  { get; set; }
+        public int Id { get; set; }
     }
 }

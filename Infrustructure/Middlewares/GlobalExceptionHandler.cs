@@ -17,7 +17,7 @@ namespace Infrastructure.Middlewares
     {
         private readonly ILogger _logger;
 
-        public GlobalExceptionHandler( ILogger<GlobalExceptionHandler> logger)
+        public GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger)
         {
             _logger = logger;
         }
@@ -38,8 +38,7 @@ namespace Infrastructure.Middlewares
             }
         }
         private async Task HandleExceptionAsync(HttpContext context, System.Exception exception) {
-            context.Response.ContentType = "application/json";
-
+           context.Response.ContentType = "application/json";
             var response = exception switch
             {
 
@@ -49,25 +48,28 @@ namespace Infrastructure.Middlewares
                     Type = "Server Error",
                     Title = "Not Found",
                     Detail = exception.Message
-                },
-               ValidationException validationException => new ProblemDetails()
-                {
-                     Status = (int)HttpStatusCode.UnprocessableEntity,
-                     Type = "Server Error",
-                     Title = "Validation error",
-                     Detail = validationException.Message,
-                  
 
+                },
+
+                ValidationException validationException => new ProblemDetails()
+                {
+                       Status= (int)HttpStatusCode.BadRequest,
+                       Type = "Server Error",
+                       Title = "Not Found",
+                       Detail = validationException.Message
                 }
             };
+
             context.Response.StatusCode = response.Status.Value;
-
-
-            string json = JsonSerializer.Serialize(response);
+            string json = JsonSerializer.Serialize(response);  
             await context.Response.WriteAsync(json);
-        }
 
-      
-               
+
+
+        }
     }
+
+
+        
+    
 }

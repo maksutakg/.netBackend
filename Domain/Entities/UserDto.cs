@@ -8,8 +8,8 @@ namespace Domain.Entities
 {
     public class UserDto
     {
-        public string name { get; set; }
-        public string surName { get; set; }
+        public string Name { get; set; }
+        public string SurName { get; set; }
         public string Note { get; set; }
         public string Mail { get; set; }
         public DateTime DateTime { get; set; } = DateTime.Now;

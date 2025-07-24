@@ -33,7 +33,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "projemaksut API", Version = "v1" });
 
-    // JWT auth tanımı
+   
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -41,7 +41,7 @@ builder.Services.AddSwaggerGen(c =>
         Scheme = "Bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "JWT token'ınızı 'Bearer ' ile birlikte girin. Örn: Bearer eyJhbGciOiJIUzI1NiIs..."
+        Description = ""
     });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -108,7 +108,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseSwagger();
 app.UseSwaggerUI();
-app.MapGet("/", () => "Hello World!");
 app.MapControllers();
 
 app.Run();

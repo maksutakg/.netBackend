@@ -5,13 +5,18 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Infrastructure.Exception
 {
     public class ValidationException : System.Exception
     {
+        public List<string>? ErrorList { get; }
         public ValidationException(string message) :base(message) {}
-        public ValidationException(string? message, System.Exception? innerException) : base(message, innerException) {}
+        public ValidationException(string? message, System.Exception? innerException) : base(message, innerException) {
+            ErrorList =  new List<string>();
+        }
 
+      
     }
 }
