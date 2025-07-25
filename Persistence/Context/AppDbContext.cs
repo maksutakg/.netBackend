@@ -11,8 +11,9 @@ namespace Persistence.Context
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<User> Users { get; set; }
-        
+         public DbSet<User> Users { get; set; }
+         public DbSet<Note> Notes { get; set; }
+       
         public AppDbContext(DbContextOptions options) : base(options)
         {
 
@@ -22,9 +23,8 @@ namespace Persistence.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().ToTable("Users");
-            base.OnModelCreating(modelBuilder);
-          
+      
+            modelBuilder.Entity<User>().HasMany(u => u.Notes).WithOne(u => u.user).HasForeignKey(u => u.UserId).IsRequired();
         }
     }
 }

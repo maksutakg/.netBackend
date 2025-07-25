@@ -20,11 +20,6 @@ namespace Application.Service
 
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
-
-        public UserService()
-        {
-        }
-
         public UserService(AppDbContext context, IMapper mapper)
         {
             _context = context;
@@ -39,6 +34,7 @@ namespace Application.Service
             Log.Information($"User created {userDto.Name},{userDto.SurName},{userDto.Mail}");
             return _mapper.Map<UserDto>(user);
 
+
         }
 
         public async Task<User> DeleteUser(int id)
@@ -47,7 +43,7 @@ namespace Application.Service
             if (user== null) { return null; }
             else
             {
-              user.IsActive = false;
+                _context.Users.Remove(user);
                 await _context.SaveChangesAsync();
                 Log.Information($"User soft deleted with ID: {id}");
                 return user;
@@ -73,7 +69,7 @@ namespace Application.Service
         }
         public async Task<List<UserDto>> GetActiveUser()
         {
-            var users = await _context.Users.Where(u => u.IsActive).OrderByDescending(u => u.DateTime).ToListAsync();
+            var users = await _context.Users.Include(u=>u.Notes).Where(u => u.IsActive).OrderByDescending(u => u.DateTime).ToListAsync();
             Log.Information($"Retrieved {users.Count} active users");
             return _mapper.Map<List<UserDto>>(users);
 
@@ -81,7 +77,7 @@ namespace Application.Service
 
         public async Task<List<UserDto>> GetUsers()
         {
-            var users = await _context.Users.ToListAsync();
+            var users = await _context.Users.Include(u => u.Notes).ToListAsync();
             Log.Information($"Retrieved {users.Count} users");
             return _mapper.Map<List<UserDto>>(users);
         }
@@ -136,6 +132,21 @@ namespace Application.Service
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Id == id && u.Name == name);
         }
+
+        public async Task<User> HardDelete(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null) { return null; }
+            else
+            {
+                _context.Users.Remove(user);
+                await _context.SaveChangesAsync();
+                Log.Information($"User soft deleted with ID: {id}");
+                return user;
+            }
+
+        }
+
     }
-    }
+}
 

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class LoginDto
+    public class NoteDto
     {
-        public string Name { get; set; }
-        public int Id { get; set; }
+        public string? text { get; set; }
+        public int? UserId { get; set; }
     }
 }

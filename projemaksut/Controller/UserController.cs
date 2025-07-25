@@ -117,17 +117,20 @@ namespace projemaksut.Controller
         public async Task<ActionResult<List<User>>> GetDetailUsers()
         {
 
-            var users = await appDbContext.Users.ToListAsync();
-            return Ok(users);
+          return await appDbContext.Users.Include(u=>u.Notes).AsNoTracking().ToListAsync();
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpDelete("adminHardDelete")]
+        [HttpDelete("adminHardDelete/{id}")]
          public async Task<ActionResult<UserDto>> HardDeleteUser(int id)
         {
-            userService.DeleteUser(id);
+            var user = await userService.GetUser(id);
+            if (user == null) { throw new NotFoundException("bulunamadı"); }
+            await  userService.HardDelete(id);
             return Ok();
 
         }
+
+
     }
 }

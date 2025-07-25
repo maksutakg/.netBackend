@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class UserDto
+    public class Note
     {
-        public string Name { get; set; }
-        public string SurName { get; set; }
-        public string Mail { get; set; }
+        public int Id { get; set; }
+        public string text { get; set; }
         public DateTime DateTime { get; set; } = DateTime.Now;
-
+        
+        
+        public int UserId { get; set; }
+        public User user { get; set; } = null!;
     }
 }

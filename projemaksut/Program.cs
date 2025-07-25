@@ -98,6 +98,7 @@ builder.Services.AddAuthentication("Bearer")
 
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<INoteService, NoteService>();
 builder.Services.AddAuthentication();
 var app = builder.Build();
 

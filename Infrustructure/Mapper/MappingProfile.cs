@@ -14,6 +14,7 @@ namespace Infrastructure.Mapper
         public MappingProfile()
         {
             CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<Note,NoteDto>().ReverseMap();
         }
     }
 }
