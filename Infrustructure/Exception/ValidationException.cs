@@ -11,7 +11,6 @@ namespace Infrastructure.Exception
 {
     public class ValidationException : System.Exception
     {
-        public List<string>? ErrorList { get; }
         public ValidationException(string message) :base(message) {}
         public ValidationException(string? message, System.Exception? innerException) : base(message, innerException) {
         

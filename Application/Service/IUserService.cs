@@ -20,5 +20,6 @@ namespace Application.Service
         Task<UserDto> UpdateUser(int id, UserDto updateUser);
         Task<List<UserDto>> GetActiveUser();
         Task<User> CheckUser(int id,string name);
+        Task<List<User>> UserDetail();
     }
 }

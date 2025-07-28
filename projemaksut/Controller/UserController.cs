@@ -43,11 +43,10 @@ namespace projemaksut.Controller
             var user = await userService.CheckUser(loginDto.Id, loginDto.Name);
             if (user != null && user.Role=="Admin")
             {
-                
                 var token = tokenService.GenerateToken(user.Name, user.Role);
                 return Ok(token);
             }
-            return NotFound();
+              throw new NotFoundException("ID and name do not match");
 
 
         }
@@ -103,9 +102,10 @@ namespace projemaksut.Controller
         {
             var validationResult= await  validator.ValidateAsync(updateUser);
             string errorMessage = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage));
+        
             if (!validationResult.IsValid)
             {
-                 throw new ValidationException(  $"{errorMessage} is not valid");
+                 throw new ValidationException(  $"{errorMessage}");
             }
 
             await userService.UpdateUser(id, updateUser);
@@ -116,9 +116,9 @@ namespace projemaksut.Controller
         [HttpGet("adminUsers")]
         public async Task<ActionResult<List<User>>> GetDetailUsers()
         {
-
-          return await appDbContext.Users.Include(u=>u.Notes).AsNoTracking().ToListAsync();
+            return await userService.UserDetail();
         }
+
 
         [Authorize(Roles = "Admin")]
         [HttpDelete("adminHardDelete/{id}")]

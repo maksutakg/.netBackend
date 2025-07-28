@@ -23,8 +23,10 @@ namespace Persistence.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-      
-            modelBuilder.Entity<User>().HasMany(u => u.Notes).WithOne(u => u.user).HasForeignKey(u => u.UserId).IsRequired();
+            modelBuilder.Entity<User>().HasMany(u => u.Notes)
+            .WithOne(u => u.user).HasForeignKey(u => u.UserId).IsRequired();
+
+
         }
     }
 }

@@ -55,7 +55,7 @@ namespace Infrastructure.Middlewares
                 {
                        Status= (int)HttpStatusCode.BadRequest,
                        Type = "Server Error",
-                       Title = "Not Found",
+                       Title = "Validation Error",
                        Detail = validationException.Message
                 }
             };

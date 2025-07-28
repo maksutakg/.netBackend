@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Domain.Entities
@@ -14,6 +15,8 @@ namespace Domain.Entities
         
         
         public int UserId { get; set; }
+
+        [JsonIgnore]
         public User user { get; set; } = null!;
     }
 }

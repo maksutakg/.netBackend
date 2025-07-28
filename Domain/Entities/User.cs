@@ -14,8 +14,7 @@ namespace Domain.Entities
         public string SurName { get; set; }
         public string Mail { get; set; }
 
-        [JsonIgnore] 
-        public ICollection<Note> Notes { get; set; } = new List<Note>();
+        public List<Note> Notes { get; set; }
 
 
     }

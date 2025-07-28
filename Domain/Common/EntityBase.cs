@@ -12,7 +12,6 @@ namespace Domain.Common
         public DateTime DateTime { get; set; } = DateTime.Now;
         public bool IsDeleted { get; set; } = false;
         public bool IsActive { get; set; } = true;
-
         public string Role { get; set; } = "User";
     }
 }

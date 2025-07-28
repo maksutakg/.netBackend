@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Entities;
+using Infrastructure.Exception;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -77,7 +78,7 @@ namespace Application.Service
 
         public async Task<List<UserDto>> GetUsers()
         {
-            var users = await _context.Users.Include(u => u.Notes).ToListAsync();
+            var users= await _context.Users.Include(u=>u.Notes).ToListAsync();
             Log.Information($"Retrieved {users.Count} users");
             return _mapper.Map<List<UserDto>>(users);
         }
@@ -130,13 +131,15 @@ namespace Application.Service
 
         public  async Task<User> CheckUser(int id, string name)
         {
+            Log.Information($"Check user: {name}");
             return await _context.Users.FirstOrDefaultAsync(u => u.Id == id && u.Name == name);
+           
         }
 
         public async Task<User> HardDelete(int id)
         {
             var user = await _context.Users.FindAsync(id);
-            if (user == null) { return null; }
+            if (user == null) { throw new NotFoundException("User not found"); }
             else
             {
                 _context.Users.Remove(user);
@@ -146,6 +149,13 @@ namespace Application.Service
             }
 
         }
+
+        public async Task<List<User>> UserDetail()
+        {
+            var users = await _context.Users.Include(u => u.Notes).ToListAsync();
+            return _mapper.Map<List<User>>(users);
+        }
+
 
     }
 }
