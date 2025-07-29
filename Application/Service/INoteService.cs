@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Application.Service
         Task<NoteDto> CreateText (NoteDto noteDto);
         Task<List<NoteDto>> GetNoteByUserId(int id);
         Task<List<Note>> GetNotes();
-        Task<NoteDto> UpdateNote(int id,NoteDto updateUser);
+        Task<NoteDto> UpdateNote(UpdateNoteRequest updateNote);
         Task<NoteDto> DeleteNote(int id);
     }
 }

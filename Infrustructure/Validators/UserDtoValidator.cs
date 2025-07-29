@@ -1,11 +1,12 @@
 ﻿using Domain.Entities;
+using Domain.Request;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Context;
 
 namespace Infrastructure.Validators
 {
-    public class UserDtoValidator : AbstractValidator<UserDto>
+    public class UserDtoValidator : AbstractValidator<User>
     {
         private readonly AppDbContext _context;
         public UserDtoValidator(AppDbContext _context)

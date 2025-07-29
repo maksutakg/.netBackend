@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Entities;
+using Domain.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,15 @@ namespace Infrastructure.Mapper
         public MappingProfile()
         {
             CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<User, CreateUserRequest>().ReverseMap();
             CreateMap<Note,NoteDto>().ReverseMap();
+            CreateMap<NoteDto, UpdateNoteRequest>().ReverseMap();
+            CreateMap<NoteDto, CreateUserRequest>().ReverseMap();
+            CreateMap<UpdateNoteRequest, Note>().ReverseMap();
+
+
+
+
         }
     }
 }

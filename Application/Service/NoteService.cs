@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Entities;
+using Domain.Request;
 using FluentValidation;
 using Infrastructure.Exception;
 using Infrastructure.Mapper;
@@ -42,7 +43,7 @@ namespace Application.Service
              
           
             }
-            return null;
+            throw new NotFoundException("bu userId bulunamadı");
         }
 
         public Task<NoteDto> DeleteNote(int id)
@@ -79,13 +80,17 @@ namespace Application.Service
             return notes;
         }
 
-        public async Task<NoteDto> UpdateNote(int id,NoteDto updateUser)
+        public async Task<NoteDto> UpdateNote(UpdateNoteRequest updateNote)
         {
-            Log.Information($"Updated Note: {id}");
-           var existingUser = await _context.Notes.FindAsync(id);
-            _mapper.Map(updateUser, existingUser);
-              await _context.SaveChangesAsync();
-            return _mapper.Map<NoteDto>(existingUser);
+             Log.Information($"Updated Note: {updateNote.Id}");
+             var existingNote = await _context.Notes.FindAsync(updateNote.Id);
+            if (existingNote!=null)
+            {
+                _mapper.Map(updateNote, existingNote);
+                await _context.SaveChangesAsync();
+                return _mapper.Map<NoteDto>(existingNote);
+            }
+             throw new NotFoundException("noteId bulun");
         }
     }
 }

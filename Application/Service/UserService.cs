@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Entities;
+using Domain.Request;
+using FluentValidation;
 using Infrastructure.Exception;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
@@ -9,6 +11,7 @@ using Persistence.Context;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -21,20 +24,22 @@ namespace Application.Service
 
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
+
         public UserService(AppDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
+            
         }
 
-        public async Task<UserDto> CreateUser(UserDto userDto)
+        public async Task<UserDto> CreateUser(CreateUserRequest createUser)
         {
-            var user = _mapper.Map<User>(userDto);
+         
+            var user = _mapper.Map<User>(createUser);
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            Log.Information($"User created {userDto.Name},{userDto.SurName},{userDto.Mail}");
+            Log.Information($"User created {createUser.Name},{createUser.SurName},{createUser.Mail}");
             return _mapper.Map<UserDto>(user);
-
 
         }
 
@@ -83,19 +88,20 @@ namespace Application.Service
             return _mapper.Map<List<UserDto>>(users);
         }
 
-        public async Task<UserDto> UpdateUser(int id, [FromBody] UserDto UpdateUser)
+        public async Task<UserDto> UpdateUser([FromBody] UpdateUserRequest updateUser)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users.FindAsync(updateUser.Id);
             if (user != null)
             {
-                _mapper.Map(UpdateUser,user);
+
+                user= _mapper.Map(UpdateUser,user);
                 await _context.SaveChangesAsync();
-                Log.Information($"User updated with Id: {id}");
+                Log.Information($"User updated with Id: {updateUser.Id}");
                 return _mapper.Map<UserDto>(user);
             }
             else
             {
-                Log.Information($"UpdateUser: not found with Id :{id}");
+                Log.Information($"UpdateUser: not found with Id :{updateUser.Id}");
                 return null;
             }
 
@@ -129,11 +135,12 @@ namespace Application.Service
         }
 
 
-        public  async Task<User> CheckUser(int id, string name)
+        public  async Task<bool> CheckUser(int id, string mail, string role)
         {
-            Log.Information($"Check user: {name}");
-            return await _context.Users.FirstOrDefaultAsync(u => u.Id == id && u.Name == name);
-           
+            Log.Information($"CheckUserById: {id}");
+            return await _context.Users.AnyAsync(u => u.Id == id && u.Role == "Admin" && u.Mail==mail);
+               //firstordefault bulduğu user döner 
+               //anyAsync bulursa true veya false döner
         }
 
         public async Task<User> HardDelete(int id)
@@ -156,7 +163,7 @@ namespace Application.Service
             return _mapper.Map<List<User>>(users);
         }
 
-
+       
     }
 }
 

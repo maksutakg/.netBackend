@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,6 +10,6 @@ namespace Infrastructure.Token
 {
     public interface ITokenService
     {
-        string GenerateToken(string username,string role);
+        string GenerateToken(int id, string mail, string role);
     }
 }

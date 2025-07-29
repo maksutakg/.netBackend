@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Domain.Entities;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -18,12 +19,13 @@ namespace Infrastructure.Token
         {
                 this.jwtOptions = jwtOptions.Value;
         }
-        public string GenerateToken(string username,string role)
+        public string GenerateToken(int id , string mail, string role)
         {
             var claims = new[] {
-         new Claim (JwtRegisteredClaimNames.Sub, username),
-         new Claim (ClaimTypes.Role, role ),
-         new Claim (JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
+          new Claim(JwtRegisteredClaimNames.Sub,id.ToString()),
+          new Claim(JwtRegisteredClaimNames.Email, mail),
+          new Claim (ClaimTypes.Role,role),
+      
 
          };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Key));

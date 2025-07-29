@@ -1,9 +1,11 @@
 ﻿using Application.Service;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Request;
 using FluentValidation;
 using Infrastructure.Exception;
 using Infrastructure.Token;
+using Infrastructure.Validators;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity.Data;
@@ -23,27 +25,27 @@ namespace projemaksut.Controller
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
+        private readonly ITokenService tokenService;
         private readonly IUserService userService;
         private readonly IMapper mapper;
-        private readonly IValidator<UserDto> validator;
-        private readonly ITokenService tokenService;
         private readonly AppDbContext appDbContext;
-        public UserController(IUserService userService, IMapper mapper, IValidator<UserDto> validator, ITokenService tokenService, AppDbContext appDbContext)
+        private readonly IValidator<User> validator;
+        public UserController(IUserService userService, IMapper mapper, ITokenService tokenService, AppDbContext appDbContext, IValidator<User> validator)
         {
             this.userService = userService;
             this.mapper = mapper;
-            this.validator = validator;
             this.tokenService = tokenService;
             this.appDbContext = appDbContext;
+            this.validator = validator;
         }
 
         [HttpPost("Auth")]
-        public async Task<ActionResult<string>> Login([FromBody] LoginDto loginDto)
+        public async Task<ActionResult<string>> Login(int id, string mail, string role)
         {
-            var user = await userService.CheckUser(loginDto.Id, loginDto.Name);
-            if (user != null && user.Role=="Admin")
+            var checkUser = await userService.CheckUser(id, mail, role);
+            if (checkUser == true)
             {
-                var token = tokenService.GenerateToken(user.Name, user.Role);
+                var token = tokenService.GenerateToken(id,mail,role);
                 return Ok(token);
             }
               throw new NotFoundException("ID and name do not match");
@@ -74,14 +76,17 @@ namespace projemaksut.Controller
         }
 
         [HttpPost("user")]
-        public async Task<ActionResult<UserDto>> PostUser([FromBody] UserDto user)
+        public async Task<ActionResult<UserDto>> PostUser([FromBody] CreateUserRequest createUser)
         {
+            var user = mapper.Map<User>(createUser);
             var validationResult = await validator.ValidateAsync(user);
             string errorMessage = string.Join(", ", validationResult.Errors);
-            if (!validationResult.IsValid) {
-                throw new ValidationException(errorMessage);
+            if (validationResult.IsValid) {
+               
+                return await userService.CreateUser(createUser);
             }
-            return await userService.CreateUser(user);
+            throw new ValidationException(errorMessage);
+
         }
 
 
@@ -98,17 +103,17 @@ namespace projemaksut.Controller
             return Ok();
         }
         [HttpPut("update/{id}")]
-        public async Task<ActionResult<UserDto>> UpdateUser(int id, [FromBody] UserDto updateUser)
+        public async Task<ActionResult<UserDto>> UpdateUser([FromBody] UpdateUserRequest updateUser)
         {
-            var validationResult= await  validator.ValidateAsync(updateUser);
+            var user = mapper.Map<User>(updateUser);
+            var validationResult =await validator.ValidateAsync(user);
             string errorMessage = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage));
-        
             if (!validationResult.IsValid)
             {
                  throw new ValidationException(  $"{errorMessage}");
             }
 
-            await userService.UpdateUser(id, updateUser);
+            await userService.UpdateUser(updateUser);
             return Ok();
         }
 

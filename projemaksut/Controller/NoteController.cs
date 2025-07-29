@@ -1,6 +1,7 @@
 ﻿using Application.Service;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Request;
 using FluentValidation;
 using Infrastructure.Exception;
 using Microsoft.AspNetCore.Http;
@@ -21,28 +22,28 @@ namespace projemaksut.Controller
         private readonly INoteService noteService;
         private readonly AppDbContext _context;
         private readonly IMapper _map;
-        private readonly IValidator<NoteDto> _validator;
+        private readonly IValidator<Note> validator;
 
 
-        public NoteController(INoteService noteService, AppDbContext context, IMapper map, IValidator<NoteDto> validator = null)
+        public NoteController(INoteService noteService, AppDbContext context, IMapper map, IValidator<Note> validator = null)
         {
             this.noteService = noteService;
             _context = context;
             _map = map;
-            _validator = validator;
+            this.validator = validator;
         }
 
         [HttpPost("CreateNote")]
         public async Task<ActionResult<Note>> CreateNote([FromBody]NoteDto noteDto)
         {
-            var validationResult = _validator.Validate(noteDto);
+            var note = _map.Map<Note>(noteDto);
+            var validationResult = await validator.ValidateAsync(note);
             var errormessage = string.Join("; ", validationResult.Errors);
-            var created =  await noteService.CreateText(noteDto);
-
             if (!validationResult.IsValid)
             {
             throw new ValidationException(errormessage);
             }
+            var created = await noteService.CreateText(noteDto);
             return Ok(created);
 
         }
@@ -61,18 +62,19 @@ namespace projemaksut.Controller
 
         [HttpPut("UpdateNote")]
         
-        public async Task<ActionResult<NoteDto>> updateUser( int id , [FromBody]NoteDto noteDto)
+        public async Task<ActionResult<NoteDto>> updateNote(UpdateNoteRequest updateNote) 
         {
-            var validationResult = _validator.Validate(noteDto);
-            var errormessage = string.Join("; ", validationResult.Errors);
-           if (!validationResult.IsValid)
-            {
-                noteService.UpdateNote(id, noteDto);
-            }
-       
-            return Ok();
+               var user = _map.Map<Note>(updateNote);
+               var validationResult =await validator.ValidateAsync(user);
+               var errormessage = string.Join("; ", validationResult.Errors);
+               if (!validationResult.IsValid) { return await noteService.UpdateNote(updateNote); }
+                throw new ValidationException(errormessage);
+               
+             
+       }
 
-        }
+
+        
         [HttpDelete("DeleteNote")]
         
         public async Task<ActionResult<UserDto>> deleteUser(int id)
