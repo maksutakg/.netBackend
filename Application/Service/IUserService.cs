@@ -20,7 +20,7 @@ namespace Application.Service
         Task <User> HardDelete(int id );
         Task<UserDto> UpdateUser(UpdateUserRequest updateUser);
         Task<List<UserDto>> GetActiveUser();
-        Task<bool> CheckUser(int id, string mail, string role);
+        Task<bool> CheckUser(string password, string mail, string role);
         Task<List<User>> UserDetail();
     }
 }

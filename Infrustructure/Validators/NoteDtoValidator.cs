@@ -14,7 +14,7 @@ namespace Infrastructure.Validators
         public NoteDtoValidator()
         {
             RuleFor(u => u.text).NotEmpty().WithMessage("text doldur ").MaximumLength(99).WithMessage("99 karekter");
-            RuleFor(u => u.UserId).NotEmpty().WithMessage("User ıd girin");
+          //  RuleFor(u => u.UserId).NotEmpty().WithMessage("User ıd girin");
         }
     }
 }

@@ -46,17 +46,17 @@ namespace Application.Service
             throw new NotFoundException("bu userId bulunamadı");
         }
 
-        public Task<NoteDto> DeleteNote(int id)
+        public async Task<bool> DeleteNote(int id)
         {
-            Log.Information($"Note {id} delete");
-            var user = _context.Notes.Find(id);
-            if (user==null)
+            var note = await _context.Notes.FindAsync(id);
+            if (note == null)
             {
-                return null;
+                throw new NotFoundException("note bulunamadı");
+
             }
-            _context.Notes.Remove(user);
-            _context.SaveChanges();
-            return null;
+            _context.Notes.Remove(note);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<List<NoteDto>> GetNoteByUserId(int id)
@@ -70,7 +70,7 @@ namespace Application.Service
                 var notes = await query.ToListAsync();
                 return _mapper.Map<List<NoteDto>>(notes);
             }
-            return null;
+            throw new NotFoundException("user bulunamadı");
         }
    
  

@@ -1,15 +1,15 @@
-﻿
-
-using Application.Service;
+﻿using Application.Service;
 using Domain.Entities;
 using Domain.Request;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Infrastructure.Mapper;
 using Infrastructure.Middlewares;
+using Infrastructure.PasswordHash;
 using Infrastructure.Token;
 using Infrastructure.Validators;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -26,7 +26,7 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
 
-
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -64,7 +64,6 @@ builder.Services.AddScoped<IValidator<User>,UserDtoValidator>();
 builder.Services.AddScoped<IValidator<Note>,NoteDtoValidator>();
 builder.Services.AddTransient<GlobalExceptionHandler>();
 
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -93,12 +92,13 @@ builder.Services.AddAuthentication("Bearer")
             ValidateIssuerSigningKey = true,
             ValidIssuer = jwtOptions.Issuer,
             ValidAudience = jwtOptions.Audience,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Key))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Key)),
+        
         };
     });
 
 
-
+builder.Services.AddScoped<PasswordHasher<object>>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<INoteService, NoteService>();
 builder.Services.AddAuthentication();

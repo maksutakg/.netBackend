@@ -8,7 +8,8 @@ namespace Domain.Entities
 {
     public class NoteDto
     {
-        public string? text { get; set; }
         public int? UserId { get; set; }
+        public string? text { get; set; }
+       
     }
 }

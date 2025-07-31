@@ -4,6 +4,7 @@ using Domain.Entities;
 using Domain.Request;
 using FluentValidation;
 using Infrastructure.Exception;
+using Infrastructure.PasswordHash;
 using Infrastructure.Token;
 using Infrastructure.Validators;
 using Microsoft.AspNetCore.Authorization;
@@ -30,6 +31,7 @@ namespace projemaksut.Controller
         private readonly IMapper mapper;
         private readonly AppDbContext appDbContext;
         private readonly IValidator<User> validator;
+    
         public UserController(IUserService userService, IMapper mapper, ITokenService tokenService, AppDbContext appDbContext, IValidator<User> validator)
         {
             this.userService = userService;
@@ -39,50 +41,14 @@ namespace projemaksut.Controller
             this.validator = validator;
         }
 
-        [HttpPost("Auth")]
-        public async Task<ActionResult<string>> Login(int id, string mail, string role)
-        {
-            var checkUser = await userService.CheckUser(id, mail, role);
-            if (checkUser == true)
-            {
-                var token = tokenService.GenerateToken(id,mail,role);
-                return Ok(token);
-            }
-              throw new NotFoundException("ID and name do not match");
-
-
-        }
-
-        [HttpGet("active/users")]
-
-        public async Task<ActionResult<List<UserDto>>> GetActiveUsers()
-        {
-            return await userService.GetActiveUser();
-
-        }
-
-        [HttpGet("users")]
-        public async Task<ActionResult<List<UserDto>>> GetUsers()
-        { 
-            return await userService.GetUsers();
-        } 
-
-
-        [HttpGet("filtre")]
-        public async Task<ActionResult<List<UserDto>>> FiltreUsers([FromQuery]int? id ,[FromQuery]string? name, [FromQuery] string? surname , [FromQuery] string? email)
-        {
-           return await userService.FiltreUsers(id,name,surname,email);
-
-        }
-
-        [HttpPost("user")]
+        [HttpPost("Register")]
         public async Task<ActionResult<UserDto>> PostUser([FromBody] CreateUserRequest createUser)
         {
             var user = mapper.Map<User>(createUser);
             var validationResult = await validator.ValidateAsync(user);
             string errorMessage = string.Join(", ", validationResult.Errors);
-            if (validationResult.IsValid) {
-               
+            if (validationResult.IsValid)
+            {
                 return await userService.CreateUser(createUser);
             }
             throw new ValidationException(errorMessage);
@@ -90,20 +56,45 @@ namespace projemaksut.Controller
         }
 
 
+        [Authorize]
+        [HttpGet("active/users")]
+        public async Task<ActionResult<List<UserDto>>> GetActiveUsers()
+        {
+            return await userService.GetActiveUser();
+
+        }
+
+        [Authorize]
+        [HttpGet("users")]
+        public async Task<ActionResult<List<UserDto>>> GetUsers()
+        { 
+            return await userService.GetUsers();
+        }
+
+        [Authorize]
+        [HttpGet("filtre")]
+        public async Task<ActionResult<List<UserDto>>> FiltreUsers([FromQuery]int? id ,[FromQuery]string? name, [FromQuery] string? surname , [FromQuery] string? email)
+        {
+           return await userService.FiltreUsers(id,name,surname,email);
+
+        }
+
+        [Authorize]
         [HttpDelete("delete/{id}")]
         public async Task<ActionResult<User>> DeleteUser(int id)
         {
             var user = await  userService.GetUser(id);
-            await userService.DeleteUser(id);
             if (user==null)
             {
                 throw new NotFoundException($"User with ID {id} not found");
 
             }
+            await userService.DeleteUser(id);
             return Ok();
         }
-        [HttpPut("update/{id}")]
-        public async Task<ActionResult<UserDto>> UpdateUser([FromBody] UpdateUserRequest updateUser)
+        [Authorize]
+        [HttpPut("update")]
+        public async Task<ActionResult<UserDto>> UpdateUser([FromQuery] UpdateUserRequest updateUser)
         {
             var user = mapper.Map<User>(updateUser);
             var validationResult =await validator.ValidateAsync(user);

@@ -3,6 +3,7 @@ using Domain.Entities;
 using Domain.Request;
 using FluentValidation;
 using Infrastructure.Exception;
+using Infrastructure.PasswordHash;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -24,18 +25,21 @@ namespace Application.Service
 
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IPasswordHasher passwordHasher;
 
-        public UserService(AppDbContext context, IMapper mapper)
+
+        public UserService(AppDbContext context, IMapper mapper, IPasswordHasher passwordHasher)
         {
             _context = context;
             _mapper = mapper;
-            
+            this.passwordHasher = passwordHasher;
         }
 
         public async Task<UserDto> CreateUser(CreateUserRequest createUser)
         {
-         
+           
             var user = _mapper.Map<User>(createUser);
+          user.HashPassword=passwordHasher.HashPassword(user,user.Password);
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             Log.Information($"User created {createUser.Name},{createUser.SurName},{createUser.Mail}");
@@ -46,7 +50,7 @@ namespace Application.Service
         public async Task<User> DeleteUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
-            if (user== null) { return null; }
+            if (user== null) { throw new NotFoundException("user bulunamadı"); }
             else
             {
                 _context.Users.Remove(user);
@@ -66,16 +70,15 @@ namespace Application.Service
                 Log.Information($"User retrieved with ID: {id}");
                 return _mapper.Map<UserDto>(user);
             }
-            else
-            {
+          
                 Log.Information($"GetUser: User not found with ID:{id}");
-                return null;
-            }
+                throw new NotFoundException("user bulunamadı ");
+           
 
         }
         public async Task<List<UserDto>> GetActiveUser()
         {
-            var users = await _context.Users.Include(u=>u.Notes).Where(u => u.IsActive).OrderByDescending(u => u.DateTime).ToListAsync();
+            var users = await _context.Users.Where(u => u.IsActive).OrderByDescending(u => u.DateTime).ToListAsync();
             Log.Information($"Retrieved {users.Count} active users");
             return _mapper.Map<List<UserDto>>(users);
 
@@ -94,7 +97,7 @@ namespace Application.Service
             if (user != null)
             {
 
-                user= _mapper.Map(UpdateUser,user);
+                user= _mapper.Map(updateUser,user);
                 await _context.SaveChangesAsync();
                 Log.Information($"User updated with Id: {updateUser.Id}");
                 return _mapper.Map<UserDto>(user);
@@ -102,7 +105,7 @@ namespace Application.Service
             else
             {
                 Log.Information($"UpdateUser: not found with Id :{updateUser.Id}");
-                return null;
+                 throw new NotFoundException("user bulunamadı");
             }
 
         }
@@ -130,17 +133,18 @@ namespace Application.Service
                 query=query.Where(u=>u.Mail.Contains(mail));
                 Log.Information($"Filtering by Mail: {mail}", mail);
             }
-           var users= await query.ToListAsync();
-            return _mapper.Map<List<UserDto>>(users);
+             var queryList= await query.ToListAsync();
+            return _mapper.Map<List<UserDto>>(queryList);
         }
 
 
-        public  async Task<bool> CheckUser(int id, string mail, string role)
+        public  async Task<bool> CheckUser(string password, string mail, string role)
         {
-            Log.Information($"CheckUserById: {id}");
-            return await _context.Users.AnyAsync(u => u.Id == id && u.Role == "Admin" && u.Mail==mail);
+            Log.Information($"CheckUser: {mail}");
+            return await _context.Users.AnyAsync(u => u.Password == password && u.Mail==mail && u.Role=="Admin");
                //firstordefault bulduğu user döner 
                //anyAsync bulursa true veya false döner
+
         }
 
         public async Task<User> HardDelete(int id)
@@ -163,7 +167,7 @@ namespace Application.Service
             return _mapper.Map<List<User>>(users);
         }
 
-       
+    
     }
 }
 

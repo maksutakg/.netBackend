@@ -36,6 +36,7 @@ namespace Infrastructure.Middlewares
                 await HandleExceptionAsync(context, ex);
 
             }
+
         }
         private async Task HandleExceptionAsync(HttpContext context, System.Exception exception) {
            context.Response.ContentType = "application/json";

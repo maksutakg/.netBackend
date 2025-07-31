@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Request;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -19,12 +20,12 @@ namespace Infrastructure.Token
         {
                 this.jwtOptions = jwtOptions.Value;
         }
-        public string GenerateToken(int id , string mail, string role)
+        public string GenerateToken(User user)
         {
             var claims = new[] {
-          new Claim(JwtRegisteredClaimNames.Sub,id.ToString()),
-          new Claim(JwtRegisteredClaimNames.Email, mail),
-          new Claim (ClaimTypes.Role,role),
+          new Claim(JwtRegisteredClaimNames.Sub,user.Id.ToString()),
+          new Claim(JwtRegisteredClaimNames.Email, user.Mail),
+          new Claim (ClaimTypes.Role, user.Role),
       
 
          };
@@ -37,10 +38,12 @@ namespace Infrastructure.Token
              claims: claims,
              expires: DateTime.UtcNow.AddMinutes(jwtOptions.ExpiresInMinutes),
              signingCredentials: creds
+
+
                 ); 
             return new JwtSecurityTokenHandler().WriteToken(token);
 
-
+            
         }
     }
 }

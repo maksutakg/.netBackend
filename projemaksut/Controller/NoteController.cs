@@ -4,6 +4,7 @@ using Domain.Entities;
 using Domain.Request;
 using FluentValidation;
 using Infrastructure.Exception;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,7 @@ namespace projemaksut.Controller
             this.validator = validator;
         }
 
+        [Authorize]
         [HttpPost("CreateNote")]
         public async Task<ActionResult<Note>> CreateNote([FromBody]NoteDto noteDto)
         {
@@ -47,7 +49,8 @@ namespace projemaksut.Controller
             return Ok(created);
 
         }
-        [HttpGet("GetNotesByUserId")]
+        [Authorize]
+        [HttpGet("GetUserNotesById")]
         public async Task<ActionResult<List<NoteDto>>> getNoteById(int id)
         {
             
@@ -60,6 +63,7 @@ namespace projemaksut.Controller
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPut("UpdateNote")]
         
         public async Task<ActionResult<NoteDto>> updateNote(UpdateNoteRequest updateNote) 
@@ -67,26 +71,29 @@ namespace projemaksut.Controller
                var user = _map.Map<Note>(updateNote);
                var validationResult =await validator.ValidateAsync(user);
                var errormessage = string.Join("; ", validationResult.Errors);
-               if (!validationResult.IsValid) { return await noteService.UpdateNote(updateNote); }
+               if (validationResult.IsValid) { return await noteService.UpdateNote(updateNote); }
                 throw new ValidationException(errormessage);
                
              
        }
 
-
-        
+        [Authorize]
         [HttpDelete("DeleteNote")]
-        
-        public async Task<ActionResult<UserDto>> deleteUser(int id)
+        public async Task<ActionResult> DeleteNote(int id)
         {
-
-            noteService.DeleteNote(id);
-            return null;
+            var note = await _context.Notes.FindAsync(id);
+            if (note==null)
+            {
+                throw new NotFoundException("note bulunamadı");
+            }
+            await noteService.DeleteNote(id);
+            return Ok();
         }
-        
-
-      
-
 
     }
+
+
+
+
+
 }

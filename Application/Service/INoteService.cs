@@ -14,6 +14,6 @@ namespace Application.Service
         Task<List<NoteDto>> GetNoteByUserId(int id);
         Task<List<Note>> GetNotes();
         Task<NoteDto> UpdateNote(UpdateNoteRequest updateNote);
-        Task<NoteDto> DeleteNote(int id);
+        Task<bool> DeleteNote(int id);
     }
 }
