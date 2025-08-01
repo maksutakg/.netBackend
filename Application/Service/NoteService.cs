@@ -46,9 +46,9 @@ namespace Application.Service
             throw new NotFoundException("bu userId bulunamadı");
         }
 
-        public async Task<bool> DeleteNote(int id)
+        public async Task<bool> DeleteNote(int Id)
         {
-            var note = await _context.Notes.FindAsync(id);
+            var note = await _context.Notes.FindAsync(Id);
             if (note == null)
             {
                 throw new NotFoundException("note bulunamadı");
@@ -82,15 +82,16 @@ namespace Application.Service
 
         public async Task<NoteDto> UpdateNote(UpdateNoteRequest updateNote)
         {
+     
              Log.Information($"Updated Note: {updateNote.Id}");
-             var existingNote = await _context.Notes.FindAsync(updateNote.Id);
-            if (existingNote!=null)
+             var existingNote = await _context.Notes.AnyAsync(u=>u.UserId==updateNote.UserId&& u.Id==updateNote.Id );
+            if (existingNote==true)
             {
                 _mapper.Map(updateNote, existingNote);
                 await _context.SaveChangesAsync();
                 return _mapper.Map<NoteDto>(existingNote);
             }
-             throw new NotFoundException("noteId bulun");
+             throw new NotFoundException(" userId için noteId bulunamadı");
         }
     }
 }

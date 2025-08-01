@@ -8,7 +8,8 @@ namespace Domain.Request
 {
     public class UpdateNoteRequest
     {
-       public int Id { get; set; }
+        public int UserId { get; set; }
+        public int Id { get; set; }
         public string text { get; set; }
         
     }

@@ -12,7 +12,6 @@ namespace Domain.Entities
         public string SurName { get; set; }
         public string Mail { get; set; }
         public DateTime DateTime { get; set; } = DateTime.Now;
-
         public List<NoteDto> Notes { get; set; }
 
     }

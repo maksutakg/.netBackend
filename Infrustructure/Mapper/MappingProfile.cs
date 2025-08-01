@@ -20,6 +20,7 @@ namespace Infrastructure.Mapper
             CreateMap<NoteDto, UpdateNoteRequest>().ReverseMap();
             CreateMap<NoteDto, CreateUserRequest>().ReverseMap();
             CreateMap<UpdateNoteRequest, Note>().ReverseMap();
+            CreateMap<User, UpdateUserRequest>().ReverseMap();
 
 
 

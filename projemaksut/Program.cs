@@ -33,7 +33,6 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "projemaksut API", Version = "v1" });
 
-   
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -62,6 +61,7 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddScoped<IValidator<User>,UserDtoValidator>();
 builder.Services.AddScoped<IValidator<Note>,NoteDtoValidator>();
+builder.Services.AddScoped<IValidator<UpdateUserRequest>, UpdateUserValidator>();
 builder.Services.AddTransient<GlobalExceptionHandler>();
 
 builder.Services.AddCors(options =>
@@ -86,8 +86,8 @@ builder.Services.AddAuthentication("Bearer")
         var jwtOptions = builder.Configuration.GetSection("Jwt").Get<JwtOptions>();
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = true,
-            ValidateAudience = true,
+            ValidateIssuer = false,
+            ValidateAudience = false,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
             ValidIssuer = jwtOptions.Issuer,
@@ -101,14 +101,12 @@ builder.Services.AddAuthentication("Bearer")
 builder.Services.AddScoped<PasswordHasher<object>>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<INoteService, NoteService>();
-builder.Services.AddAuthentication();
+
 var app = builder.Build();
-
-
-app.UseMiddleware<GlobalExceptionHandler>();
 app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseMiddleware<GlobalExceptionHandler>();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.MapControllers();

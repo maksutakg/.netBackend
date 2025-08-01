@@ -91,23 +91,28 @@ namespace Application.Service
             return _mapper.Map<List<UserDto>>(users);
         }
 
-        public async Task<UserDto> UpdateUser([FromBody] UpdateUserRequest updateUser)
+        public async Task<UserDto> UpdateUser(UpdateUserRequest updateUser)
         {
             var user = await _context.Users.FindAsync(updateUser.Id);
             if (user != null)
             {
-
-                user= _mapper.Map(updateUser,user);
+                if (!string.IsNullOrWhiteSpace(updateUser.Mail)) { user.Mail = updateUser.Mail; }                                        
+                if (!string.IsNullOrWhiteSpace(updateUser.SurName)) { user.SurName = updateUser.SurName; }
+                if (!string.IsNullOrWhiteSpace(updateUser.Name)) { user.Name = updateUser.Name; }
+                if (!string.IsNullOrWhiteSpace(updateUser.Password))
+                {                                   
+                    user.Password = updateUser.Password;
+                    user.HashPassword = passwordHasher.HashPassword(user, user.Password);
+                }
+                  
                 await _context.SaveChangesAsync();
                 Log.Information($"User updated with Id: {updateUser.Id}");
                 return _mapper.Map<UserDto>(user);
             }
-            else
-            {
-                Log.Information($"UpdateUser: not found with Id :{updateUser.Id}");
-                 throw new NotFoundException("user bulunamadı");
-            }
 
+            Log.Information($"UpdateUser: not found with Id :{updateUser.Id}");
+                 throw new NotFoundException("user bulunamadı");
+          
         }
 
        public async Task<List<UserDto>> FiltreUsers(int? id, string? name, string? surName, string? mail)
@@ -137,15 +142,6 @@ namespace Application.Service
             return _mapper.Map<List<UserDto>>(queryList);
         }
 
-
-        public  async Task<bool> CheckUser(string password, string mail, string role)
-        {
-            Log.Information($"CheckUser: {mail}");
-            return await _context.Users.AnyAsync(u => u.Password == password && u.Mail==mail && u.Role=="Admin");
-               //firstordefault bulduğu user döner 
-               //anyAsync bulursa true veya false döner
-
-        }
 
         public async Task<User> HardDelete(int id)
         {

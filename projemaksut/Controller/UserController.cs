@@ -31,14 +31,16 @@ namespace projemaksut.Controller
         private readonly IMapper mapper;
         private readonly AppDbContext appDbContext;
         private readonly IValidator<User> validator;
-    
-        public UserController(IUserService userService, IMapper mapper, ITokenService tokenService, AppDbContext appDbContext, IValidator<User> validator)
+        private readonly IValidator<UpdateUserRequest> validatorUpdate;
+
+        public UserController(IUserService userService, IMapper mapper, ITokenService tokenService, AppDbContext appDbContext, IValidator<User> validator, IValidator<UpdateUserRequest> validatorUpdate)
         {
             this.userService = userService;
             this.mapper = mapper;
             this.tokenService = tokenService;
             this.appDbContext = appDbContext;
             this.validator = validator;
+            this.validatorUpdate = validatorUpdate;
         }
 
         [HttpPost("Register")]
@@ -96,8 +98,7 @@ namespace projemaksut.Controller
         [HttpPut("update")]
         public async Task<ActionResult<UserDto>> UpdateUser([FromQuery] UpdateUserRequest updateUser)
         {
-            var user = mapper.Map<User>(updateUser);
-            var validationResult =await validator.ValidateAsync(user);
+            var validationResult =await validatorUpdate.ValidateAsync(updateUser);
             string errorMessage = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage));
             if (!validationResult.IsValid)
             {
