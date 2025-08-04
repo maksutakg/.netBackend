@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class NoteDto
+    public class MahalleDto
     {
         public int Id { get; set; }
-        public int? UserId { get; set; }
-        public string? text { get; set; }
-        public int? MahalleId { get; set; }
+        public string Name { get; set; }
+        public string Ilce { get; set; } = "Beşiktaş";
 
+        public List<NoteDto> Notes { get; set; }
     }
 }

@@ -10,10 +10,11 @@ namespace Application.Service
 {
    public interface INoteService
     {
-        Task<NoteDto> CreateText (NoteDto noteDto);
+        Task<NoteDto> CreateText (CreateNoteRequest createNote);
         Task<List<NoteDto>> GetNoteByUserId(int id);
         Task<List<Note>> GetNotes();
         Task<NoteDto> UpdateNote(UpdateNoteRequest updateNote);
         Task<bool> DeleteNote(int id);
+        Task<List<NoteDto>> FiltreNotes(string note);
     }
 }

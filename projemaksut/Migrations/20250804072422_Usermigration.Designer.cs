@@ -12,8 +12,8 @@ using Persistence.Context;
 namespace projemaksut.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250731064316_passwordmig")]
-    partial class passwordmig
+    [Migration("20250804072422_Usermigration")]
+    partial class Usermigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,83 @@ namespace projemaksut.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
+
+            modelBuilder.Entity("Domain.Entities.Mahalle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Ilce")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("mahalleler");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Ilce = "Beşiktaş",
+                            Name = "Abbasağa"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Ilce = "Beşiktaş",
+                            Name = "Akat"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Ilce = "Beşiktaş",
+                            Name = "Arnavutköy"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Ilce = "Beşiktaş",
+                            Name = "Balmumcu"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Ilce = "Beşiktaş",
+                            Name = "Bebek"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Ilce = "Beşiktaş",
+                            Name = "Cihannüma"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Ilce = "Beşiktaş",
+                            Name = "Dikilitaş"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Ilce = "Beşiktaş",
+                            Name = "Etiler"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Ilce = "Beşiktaş",
+                            Name = "Gayrettepe"
+                        });
+                });
 
             modelBuilder.Entity("Domain.Entities.Note", b =>
                 {
@@ -36,6 +113,9 @@ namespace projemaksut.Migrations
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int>("MahalleId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -44,6 +124,8 @@ namespace projemaksut.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MahalleId");
 
                     b.HasIndex("UserId");
 
@@ -98,13 +180,26 @@ namespace projemaksut.Migrations
 
             modelBuilder.Entity("Domain.Entities.Note", b =>
                 {
+                    b.HasOne("Domain.Entities.Mahalle", "mahalle")
+                        .WithMany("Notes")
+                        .HasForeignKey("MahalleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.User", "user")
                         .WithMany("Notes")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("mahalle");
+
                     b.Navigation("user");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Mahalle", b =>
+                {
+                    b.Navigation("Notes");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>

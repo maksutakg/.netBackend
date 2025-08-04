@@ -4,15 +4,34 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace projemaksut.Migrations
 {
     /// <inheritdoc />
-    public partial class notemigrations : Migration
+    public partial class Usermigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "mahalleler",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Ilce = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_mahalleler", x => x.Id);
+                })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
@@ -26,6 +45,10 @@ namespace projemaksut.Migrations
                     SurName = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Mail = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Password = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    HashPassword = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DateTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
@@ -48,7 +71,8 @@ namespace projemaksut.Migrations
                     text = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DateTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    MahalleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -59,8 +83,35 @@ namespace projemaksut.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Notes_mahalleler_MahalleId",
+                        column: x => x.MahalleId,
+                        principalTable: "mahalleler",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.InsertData(
+                table: "mahalleler",
+                columns: new[] { "Id", "Ilce", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Beşiktaş", "Abbasağa" },
+                    { 2, "Beşiktaş", "Akat" },
+                    { 3, "Beşiktaş", "Arnavutköy" },
+                    { 4, "Beşiktaş", "Balmumcu" },
+                    { 5, "Beşiktaş", "Bebek" },
+                    { 6, "Beşiktaş", "Cihannüma" },
+                    { 7, "Beşiktaş", "Dikilitaş" },
+                    { 8, "Beşiktaş", "Etiler" },
+                    { 9, "Beşiktaş", "Gayrettepe" }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notes_MahalleId",
+                table: "Notes",
+                column: "MahalleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Notes_UserId",
@@ -76,6 +127,9 @@ namespace projemaksut.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "mahalleler");
         }
     }
 }

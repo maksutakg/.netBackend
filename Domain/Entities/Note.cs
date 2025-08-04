@@ -12,11 +12,16 @@ namespace Domain.Entities
         public int Id { get; set; }
         public string text { get; set; }
         public DateTime DateTime { get; set; } = DateTime.Now;
-        
-        
+            
         public int UserId { get; set; }
 
         [JsonIgnore]
         public User user { get; set; } = null!;
+
+        public int MahalleId { get; set; }
+
+        [JsonIgnore]
+        public Mahalle mahalle { get; set; }
+   
     }
 }

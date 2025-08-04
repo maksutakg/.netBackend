@@ -86,8 +86,8 @@ builder.Services.AddAuthentication("Bearer")
         var jwtOptions = builder.Configuration.GetSection("Jwt").Get<JwtOptions>();
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = false,
-            ValidateAudience = false,
+            ValidateIssuer = true,
+            ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
             ValidIssuer = jwtOptions.Issuer,
@@ -101,6 +101,7 @@ builder.Services.AddAuthentication("Bearer")
 builder.Services.AddScoped<PasswordHasher<object>>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<INoteService, NoteService>();
+builder.Services.AddScoped<IMahalleService, MahalleService>();
 
 var app = builder.Build();
 app.UseCors("AllowAll");

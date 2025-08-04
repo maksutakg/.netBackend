@@ -4,14 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities
+namespace Domain.Request
 {
-    public class NoteDto
+    public class CreateNoteRequest
     {
-        public int Id { get; set; }
         public int? UserId { get; set; }
         public string? text { get; set; }
         public int? MahalleId { get; set; }
-
     }
 }

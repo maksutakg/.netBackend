@@ -37,16 +37,16 @@ namespace projemaksut.Controller
 
         [Authorize]
         [HttpPost("CreateNote")]
-        public async Task<ActionResult<Note>> CreateNote([FromBody]NoteDto noteDto)
+        public async Task<ActionResult<Note>> CreateNote([FromBody]CreateNoteRequest noteRequest)
         {
-            var note = _map.Map<Note>(noteDto);
+            var note = _map.Map<Note>(noteRequest);
             var validationResult = await validator.ValidateAsync(note);
             var errormessage = string.Join("; ", validationResult.Errors);
             if (!validationResult.IsValid)
             {
             throw new ValidationException(errormessage);
             }
-            var created = await noteService.CreateText(noteDto);
+            var created = await noteService.CreateText(noteRequest);
             return Ok(created);
 
         }
@@ -89,6 +89,17 @@ namespace projemaksut.Controller
             }
             await noteService.DeleteNote(id);
             return Ok();
+        }
+     
+
+        [Authorize]
+        [HttpGet("FiltreNot")]
+        public async Task <ActionResult<List<NoteDto>>> FiltreNote([FromQuery] string text)
+        {
+
+             return await noteService.FiltreNotes(text);
+            
+
         }
 
     }

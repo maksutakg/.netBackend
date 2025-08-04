@@ -37,9 +37,8 @@ namespace Application.Service
 
         public async Task<UserDto> CreateUser(CreateUserRequest createUser)
         {
-           
             var user = _mapper.Map<User>(createUser);
-          user.HashPassword=passwordHasher.HashPassword(user,user.Password);
+             user.HashPassword=passwordHasher.HashPassword(user,user.Password);
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             Log.Information($"User created {createUser.Name},{createUser.SurName},{createUser.Mail}");
