@@ -8,7 +8,7 @@ namespace Domain.Request
 {
     public class CreateNoteRequest
     {
-        public int? UserId { get; set; }
+       // public int? UserId { get; set; }
         public string? text { get; set; }
         public int? MahalleId { get; set; }
     }

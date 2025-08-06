@@ -24,6 +24,7 @@ namespace Infrastructure.Mapper
             CreateMap<UpdateNoteRequest, Note>().ReverseMap();
             CreateMap<User, UpdateUserRequest>().ReverseMap();
             CreateMap<Mahalle,MahalleDto>().ReverseMap();
+            CreateMap<CreateNoteRequest,Note>().ReverseMap();
 
 
 

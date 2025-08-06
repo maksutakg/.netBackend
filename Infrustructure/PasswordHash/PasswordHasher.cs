@@ -23,10 +23,10 @@
                 return _hasher.HashPassword(user , password);
             }
 
-            public bool VerifyPassword( User user,string hashPassword, string providePassword)
+            public PasswordVerificationResult VerifyPassword( User user,string hashPassword, string providePassword)
             {
                var result = _hasher.VerifyHashedPassword(user,hashPassword, providePassword);
-               return result == PasswordVerificationResult.Success;
+            return result;
             }
         }
     }

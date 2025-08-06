@@ -52,7 +52,7 @@ namespace Application.Service
             if (user== null) { throw new NotFoundException("user bulunamadı"); }
             else
             {
-                _context.Users.Remove(user);
+                user.IsDeleted = true;
                 await _context.SaveChangesAsync();
                 Log.Information($"User soft deleted with ID: {id}");
                 return user;

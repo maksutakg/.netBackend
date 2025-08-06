@@ -34,7 +34,7 @@ namespace projemaksut.Controller
             var user = await context.Users.FirstOrDefaultAsync(u => u.Mail == login.Mail);
             if (user == null) { throw new NotFoundException("hatalı mail"); }
             var result=passwordHasher.VerifyPassword(user, user.HashPassword, login.Password);
-            if (result == false) { throw new NotFoundException("hatalı şifre"); }
+            if (result ==PasswordVerificationResult.Failed) { throw new NotFoundException("hatalı şifre"); }
             return  tokenService.GenerateToken(user);
                 
         }

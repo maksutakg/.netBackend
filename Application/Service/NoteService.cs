@@ -30,20 +30,15 @@ namespace Application.Service
             _mapper = mapper;
         }
 
-        public async Task<NoteDto> CreateText(CreateNoteRequest createNote)
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == createNote.UserId);
-            if (user != null)
-            {
-                Log.Information($"Note Created byId: {createNote.UserId}");
+        public async Task<NoteDto> CreateText(int userId ,CreateNoteRequest createNote)
+        {      
+               Log.Information($"Note Created");
                var note = _mapper.Map<Note>(createNote);
+               note.UserId = userId;
                 await _context.Notes.AddAsync(note);
-                await _context.SaveChangesAsync();
-                return _mapper.Map<NoteDto>(note);
-             
-          
-            }
-            throw new NotFoundException("bu userId bulunamadı");
+                await _context.SaveChangesAsync();  
+                return _mapper.Map<NoteDto>(note);   
+           
         }
 
         public async Task<bool> DeleteNote(int Id)
@@ -71,6 +66,12 @@ namespace Application.Service
             return _mapper.Map<List<NoteDto>>(result);
         }
 
+        public async Task<Note> FindNoteById(int id)
+        {
+          return await _context.Notes.FindAsync(id);
+           
+        }
+
         public async Task<List<NoteDto>> GetNoteByUserId(int id)
         {
             Log.Information($"get not by user ıd ; {id}");
@@ -94,16 +95,18 @@ namespace Application.Service
 
         public async Task<NoteDto> UpdateNote(UpdateNoteRequest updateNote)
         {
-     
-             Log.Information($"Updated Note: {updateNote.Id}");
-             var existingNote = await _context.Notes.FirstOrDefaultAsync(u=>u.UserId==updateNote.UserId&& u.Id==updateNote.Id );
+             var existingNote = await _context.Notes.FirstOrDefaultAsync(u=>u.Id == updateNote.NoteId );
+            
             if (existingNote!=null)
             {
                 _mapper.Map(updateNote, existingNote);
                 await _context.SaveChangesAsync();
                 return _mapper.Map<NoteDto>(existingNote);
+               
+                
             }
              throw new NotFoundException(" userId için noteId ");
+
         }
     }
 }

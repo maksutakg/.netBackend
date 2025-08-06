@@ -12,6 +12,8 @@ using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 using Persistence.Context;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ValidationException = Infrastructure.Exception.ValidationException;
 
@@ -39,6 +41,12 @@ namespace projemaksut.Controller
         [HttpPost("CreateNote")]
         public async Task<ActionResult<Note>> CreateNote([FromBody]CreateNoteRequest noteRequest)
         {
+            var TokenUserId =User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (TokenUserId==null)
+            {
+                throw new NotFoundException("token sorunu");
+            }
+            var user = await _context.Users.FindAsync(int.Parse(TokenUserId));
             var note = _map.Map<Note>(noteRequest);
             var validationResult = await validator.ValidateAsync(note);
             var errormessage = string.Join("; ", validationResult.Errors);
@@ -46,7 +54,7 @@ namespace projemaksut.Controller
             {
             throw new ValidationException(errormessage);
             }
-            var created = await noteService.CreateText(noteRequest);
+            var created = await noteService.CreateText(user.Id,noteRequest);
             return Ok(created);
 
         }
@@ -69,13 +77,19 @@ namespace projemaksut.Controller
         
         public async Task<ActionResult<NoteDto>> updateNote(UpdateNoteRequest updateNote) 
         {
-               var user = _map.Map<Note>(updateNote);
-               var validationResult =await validator.ValidateAsync(user);
-               var errormessage = string.Join("; ", validationResult.Errors);
-               if (validationResult.IsValid) { return await noteService.UpdateNote(updateNote); }
-                throw new ValidationException(errormessage);
-               
-             
+            
+            var userNote = await noteService.FindNoteById(updateNote.NoteId);
+            if (userNote==null)
+            {
+                throw new NotFoundException("not bulunamadı");
+            }
+            var tokenUser = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (userNote.UserId.ToString() == tokenUser)
+            {
+                return await noteService.UpdateNote(updateNote);
+            }
+            throw new NotFoundException("bu not sizin değil ");
+
        }
 
         [Authorize]

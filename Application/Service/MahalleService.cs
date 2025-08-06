@@ -28,7 +28,7 @@ namespace Application.Service
             {
                 query= query.Where(u=>u.Name.Contains(name));
             }
-            var result = await query.Include(u=>u.Notes).ToListAsync();
+            var result = await query.Include(u => u.Notes).ToListAsync();
             return _mapper.Map<List<MahalleDto>>(result);
         }
 

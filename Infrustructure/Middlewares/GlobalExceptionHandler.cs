@@ -39,7 +39,7 @@ namespace Infrastructure.Middlewares
 
         }
         private async Task HandleExceptionAsync(HttpContext context, System.Exception exception) {
-           context.Response.ContentType = "application/json";
+            context.Response.ContentType = "application/json";
             var response = exception switch
             {
 
@@ -59,6 +59,7 @@ namespace Infrastructure.Middlewares
                        Title = "Validation Error",
                        Detail = validationException.Message
                 }
+               
             };
 
             context.Response.StatusCode = response.Status.Value;
