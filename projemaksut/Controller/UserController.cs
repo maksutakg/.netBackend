@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore.Query.Internal;
 using Persistence.Context;
 using System.Data;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ValidationException = Infrastructure.Exception.ValidationException;
 
@@ -44,14 +45,15 @@ namespace projemaksut.Controller
         }
 
         [HttpPost("Register")]
-        public async Task<ActionResult<UserDto>> PostUser([FromBody] CreateUserRequest createUser)
+        public async Task<ActionResult<UserDto>> PostUser([FromQuery] CreateUserRequest createUser)
         {
             var user = mapper.Map<User>(createUser);
             var validationResult = await validator.ValidateAsync(user);
             string errorMessage = string.Join(", ", validationResult.Errors);
             if (validationResult.IsValid)
             {
-                return await userService.CreateUser(createUser);
+               await userService.CreateUser(createUser);
+                return Ok(createUser);
             }
             throw new ValidationException(errorMessage);
 
@@ -98,15 +100,16 @@ namespace projemaksut.Controller
         [HttpPut("update")]
         public async Task<ActionResult<UserDto>> UpdateUser([FromQuery] UpdateUserRequest updateUser)
         {
+            var tokenUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var validationResult =await validatorUpdate.ValidateAsync(updateUser);
-            string errorMessage = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage));
+           string errorMessage = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage));
             if (!validationResult.IsValid)
             {
                  throw new ValidationException(  $"{errorMessage}");
             }
-
-            await userService.UpdateUser(updateUser);
-            return Ok();
+            
+            await userService.UpdateUser(int.Parse(tokenUserId),updateUser);
+            return Ok(updateUser);
         }
 
         [Authorize(Roles= "Admin")]

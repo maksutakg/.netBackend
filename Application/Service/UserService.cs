@@ -90,14 +90,22 @@ namespace Application.Service
             return _mapper.Map<List<UserDto>>(users);
         }
 
-        public async Task<UserDto> UpdateUser(UpdateUserRequest updateUser)
+        public async Task<UserDto> UpdateUser(int id ,UpdateUserRequest updateUser)
         {
-            var user = await _context.Users.FindAsync(updateUser.Id);
+            var user = await _context.Users.FindAsync(id);
+         
             if (user != null)
             {
-                if (!string.IsNullOrWhiteSpace(updateUser.Mail)) { user.Mail = updateUser.Mail; }                                        
-                if (!string.IsNullOrWhiteSpace(updateUser.SurName)) { user.SurName = updateUser.SurName; }
+                if (!string.IsNullOrWhiteSpace(updateUser.Mail)) {
+                    var mailCheck = await _context.Users.AnyAsync(u => u.Mail == updateUser.Mail);
+                    if (mailCheck == true)
+                    {
+                        throw new NotFoundException("bu mail kullanılıyor ");
+                    }
+                    user.SurName = updateUser.SurName;
+                }                                        
                 if (!string.IsNullOrWhiteSpace(updateUser.Name)) { user.Name = updateUser.Name; }
+                if (!string.IsNullOrWhiteSpace(updateUser.SurName)){ user.SurName = updateUser.SurName; }
                 if (!string.IsNullOrWhiteSpace(updateUser.Password))
                 {                                   
                     user.Password = updateUser.Password;
@@ -105,11 +113,11 @@ namespace Application.Service
                 }
                   
                 await _context.SaveChangesAsync();
-                Log.Information($"User updated with Id: {updateUser.Id}");
+                Log.Information($"User updated with Id: {id}");
                 return _mapper.Map<UserDto>(user);
             }
 
-            Log.Information($"UpdateUser: not found with Id :{updateUser.Id}");
+            Log.Information($"UpdateUser: not found with Id :{id}");
                  throw new NotFoundException("user bulunamadı");
           
         }

@@ -13,7 +13,7 @@ namespace Infrastructure.Validators
     {
         public UpdateUserValidator()
         {
-            RuleFor(u => u.Id).NotEmpty().WithMessage("Id doldur");
+         //   RuleFor(u => u.Id).NotEmpty().WithMessage("Id doldur");
         }
     }
 }

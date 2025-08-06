@@ -28,6 +28,7 @@ namespace Infrastructure.Middlewares
             try
             {
                 await _next(context);
+               
             }
             catch (System.Exception ex)
             {

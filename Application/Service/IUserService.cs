@@ -18,7 +18,7 @@ namespace Application.Service
         Task <List<UserDto>> FiltreUsers(int? id,string? name, string? surName, string? mail);
         Task<User> DeleteUser(int id);
         Task <User> HardDelete(int id );
-        Task<UserDto> UpdateUser(UpdateUserRequest updateUser);
+        Task<UserDto> UpdateUser(int id ,UpdateUserRequest updateUser);
         Task<List<UserDto>> GetActiveUser();
         Task<List<User>> UserDetail();
     }

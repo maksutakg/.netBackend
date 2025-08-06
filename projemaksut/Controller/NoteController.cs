@@ -42,6 +42,7 @@ namespace projemaksut.Controller
         public async Task<ActionResult<Note>> CreateNote([FromBody]CreateNoteRequest noteRequest)
         {
             var TokenUserId =User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            
             if (TokenUserId==null)
             {
                 throw new NotFoundException("token sorunu");
@@ -86,7 +87,8 @@ namespace projemaksut.Controller
             var tokenUser = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             if (userNote.UserId.ToString() == tokenUser)
             {
-                return await noteService.UpdateNote(updateNote);
+                await noteService.UpdateNote(updateNote);
+                return Ok(updateNote);
             }
             throw new NotFoundException("bu not sizin değil ");
 

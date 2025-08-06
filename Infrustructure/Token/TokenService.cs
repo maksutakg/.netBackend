@@ -23,7 +23,7 @@ namespace Infrastructure.Token
         public string GenerateToken(User user)
         {
             var claims = new[] {
-          new Claim(JwtRegisteredClaimNames.Sub,user.ToString()),
+          new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
           new Claim(JwtRegisteredClaimNames.Email, user.Mail),
           new Claim (ClaimTypes.Role, user.Role),
       

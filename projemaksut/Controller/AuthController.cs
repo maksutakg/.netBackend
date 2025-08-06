@@ -29,13 +29,13 @@ namespace projemaksut.Controller
        
 
         [HttpPost("Login")]
-        public async Task<ActionResult<string>> Login(LoginRequest login)
+        public async Task<ActionResult<string>> Login([FromQuery]LoginRequest login)
         {
             var user = await context.Users.FirstOrDefaultAsync(u => u.Mail == login.Mail);
             if (user == null) { throw new NotFoundException("hatalı mail"); }
             var result=passwordHasher.VerifyPassword(user, user.HashPassword, login.Password);
             if (result ==PasswordVerificationResult.Failed) { throw new NotFoundException("hatalı şifre"); }
-            return  tokenService.GenerateToken(user);
+            return Ok(tokenService.GenerateToken(user));
                 
         }
     }
