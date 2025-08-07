@@ -19,11 +19,12 @@ namespace Persistence.Context
         {
 
         }
-        protected AppDbContext()
-        {
-        }
+       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>().HasIndex(u=>u.Mail).IsUnique();
+
+
             modelBuilder.Entity<User>().HasMany(u => u.Notes)
             .WithOne(u => u.user).HasForeignKey(u => u.UserId).IsRequired();
             modelBuilder.Entity<Mahalle>().HasMany(u => u.Notes)

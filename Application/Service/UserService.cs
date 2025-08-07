@@ -49,7 +49,7 @@ namespace Application.Service
         public async Task<bool> DeleteUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
-            if (user== null && user.IsDeleted==true) { throw new NotFoundException("user bulunamadı"); }
+            if (user== null || user.IsDeleted==true) { throw new NotFoundException("user bulunamadı"); }
             else
             {
                 user.IsDeleted = true;
@@ -101,7 +101,7 @@ namespace Application.Service
                     var mailCheck = await _context.Users.AnyAsync(u => u.Mail == updateUser.Mail);
                     if (mailCheck == true)
                     {
-                        throw new NotFoundException("bu mail kullanılıyor ");
+                        throw new NotFoundException("bu mail mevcut ");
                     }
                    
                 }                                        
