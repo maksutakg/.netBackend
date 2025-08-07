@@ -98,7 +98,7 @@ builder.Services.AddAuthentication("Bearer")
     });
 
 
-builder.Services.AddScoped<PasswordHasher<object>>();
+builder.Services.AddScoped<PasswordHasher<User>>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<INoteService, NoteService>();
 builder.Services.AddScoped<IMahalleService, MahalleService>();

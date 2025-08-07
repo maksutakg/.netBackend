@@ -46,19 +46,20 @@ namespace Application.Service
 
         }
 
-        public async Task<User> DeleteUser(int id)
+        public async Task<bool> DeleteUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
-            if (user== null) { throw new NotFoundException("user bulunamadı"); }
+            if (user== null && user.IsDeleted==true) { throw new NotFoundException("user bulunamadı"); }
             else
             {
                 user.IsDeleted = true;
                 await _context.SaveChangesAsync();
                 Log.Information($"User soft deleted with ID: {id}");
-                return user;
+                return true;
             }
           
         }
+       
 
         public async Task<UserDto> GetUser(int id)
         {
@@ -102,7 +103,7 @@ namespace Application.Service
                     {
                         throw new NotFoundException("bu mail kullanılıyor ");
                     }
-                    user.SurName = updateUser.SurName;
+                   
                 }                                        
                 if (!string.IsNullOrWhiteSpace(updateUser.Name)) { user.Name = updateUser.Name; }
                 if (!string.IsNullOrWhiteSpace(updateUser.SurName)){ user.SurName = updateUser.SurName; }
@@ -150,7 +151,7 @@ namespace Application.Service
         }
 
 
-        public async Task<User> HardDelete(int id)
+        public async Task<bool> HardDelete(int id)
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null) { throw new NotFoundException("User not found"); }
@@ -159,7 +160,7 @@ namespace Application.Service
                 _context.Users.Remove(user);
                 await _context.SaveChangesAsync();
                 Log.Information($"User soft deleted with ID: {id}");
-                return user;
+                return true;
             }
 
         }
@@ -170,7 +171,7 @@ namespace Application.Service
             return _mapper.Map<List<User>>(users);
         }
 
-    
+      
     }
 }
 

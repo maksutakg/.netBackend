@@ -1,4 +1,4 @@
-﻿    using Domain.Entities;
+﻿     using Domain.Entities;
     using Microsoft.AspNetCore.Identity;
     using System;
     using System.Collections.Generic;
@@ -11,9 +11,9 @@
     {
         public class PasswordHasher : IPasswordHasher
         {
-            private readonly PasswordHasher<object> _hasher;
+            private readonly PasswordHasher<User> _hasher;
 
-            public PasswordHasher(PasswordHasher<object> hasher)
+            public PasswordHasher(PasswordHasher<User> hasher)
             {
                 _hasher = hasher;
             }

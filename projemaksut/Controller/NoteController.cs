@@ -75,7 +75,6 @@ namespace projemaksut.Controller
 
         [Authorize]
         [HttpPut("UpdateNote")]
-        
         public async Task<ActionResult<NoteDto>> updateNote(UpdateNoteRequest updateNote) 
         {
             
