@@ -62,7 +62,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddScoped<IValidator<User>,UserDtoValidator>();
 builder.Services.AddScoped<IValidator<Note>,NoteDtoValidator>();
 builder.Services.AddScoped<IValidator<UpdateUserRequest>, UpdateUserValidator>();
-builder.Services.AddTransient<GlobalExceptionHandler>();
+builder.Services.AddSingleton <GlobalExceptionHandler>();
 
 builder.Services.AddCors(options =>
 {

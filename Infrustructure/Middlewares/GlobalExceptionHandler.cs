@@ -59,6 +59,14 @@ namespace Infrastructure.Middlewares
                        Type = "Server Error",
                        Title = "Validation Error",
                        Detail = validationException.Message
+                },
+
+                _ => new ProblemDetails()
+                {
+                    Status= (int)HttpStatusCode.InternalServerError,
+                    Type = "Server Error",
+                    Title = "Default Error",
+                    Detail = exception.Message
                 }
                
             };

@@ -35,7 +35,7 @@ namespace projemaksut.Controller
             if (user == null) { throw new NotFoundException("hatalı mail"); }
             var result=passwordHasher.VerifyPassword(user, user.HashPassword, login.Password);
             if (result ==PasswordVerificationResult.Failed) { throw new NotFoundException("hatalı şifre"); }
-            return Ok(tokenService.GenerateToken(user));
+            return Ok( tokenService.GenerateToken(user));
                 
         }
     }

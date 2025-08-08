@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,28 +23,26 @@ namespace Infrastructure.Token
         }
         public string GenerateToken(User user)
         {
-            var claims = new[] {
-          new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
-          new Claim(JwtRegisteredClaimNames.Email, user.Mail),
-          new Claim (ClaimTypes.Role, user.Role),
-      
 
-         };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Key));
-            var creds = new SigningCredentials(key,SecurityAlgorithms.HmacSha256);
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var claims = new[] {
+                new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, user.Mail),
+                new Claim (ClaimTypes.Role, user.Role),
+            };
 
-            var token = new JwtSecurityToken(
+            JwtSecurityToken token = new(
              issuer: jwtOptions.Issuer,
              audience: jwtOptions.Audience,
              claims: claims,
              expires: DateTime.UtcNow.AddMinutes(jwtOptions.ExpiresInMinutes),
              signingCredentials: creds
+             );
 
-
-                ); 
-            return new JwtSecurityTokenHandler().WriteToken(token);
-
+           return new JwtSecurityTokenHandler().WriteToken(token);
             
         }
+      
     }
 }
